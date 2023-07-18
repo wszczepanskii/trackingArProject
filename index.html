@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Tracking AR</title>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, user-scalable=no"
+		/>
+
+		<script type="importmap">
+			{
+				"imports": {
+					"three": "./node_modules/three/build/three.module.js",
+					"three/addons/": "./node_modules/three/examples/jsm/"
+				}
+			}
+		</script>
+
+		<link href="./css/style.css" rel="stylesheet" />
+		<script src="./js/artoolkit.api.js"></script>
+		<script src="./js/artoolkit.min.js"></script>
+		<script src="./js/threex-arbasecontrols.js" type="module"></script>
+		<script src="./js/threex-armarkercontrols.js"></script>
+		<script src="./js/threex-artoolkitcontext.js" type="module"></script>
+		<script src="./js/threex-artoolkitsource.js"></script>
+	</head>
+	<body>
+		<script src="./js/app.js" type="module"></script>
+	</body>
+</html>
