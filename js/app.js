@@ -1,8 +1,9 @@
 // import * as THREE from "three";
 // import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 // import { ARButton } from "three/addons/webxr/ARButton.js";
-import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
-import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+// import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
+// import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
 // import { RGBELoader } from "three/addons/loaders/lwo/RGBELoader.js";
 
 var scene, camera, renderer, clock, deltaTime, totalTime;
@@ -116,41 +117,41 @@ function initialize() {
 		console.error(xhr);
 	}
 
-	// function loadModel(model) {
-	// 	let loader = new GLTFLoader().setPath("../3d/");
-	// 	loader.load(model + ".glb", (glb) => {
-	// 		obj = glb.scene;
-	// 		obj.scale.set(
-	// 			0.5 * glb.scene.scale.x,
-	// 			0.5 * glb.scene.scale.y,
-	// 			0.5 * glb.scene.scale.z
-	// 		);
-
-	// 		markerRoot1.add(obj);
-	// 	});
-	// }
-
-	// loadModel("chair");
-
-	new MTLLoader().setPath("models/").load("fish-2.mtl", function (materials) {
-		materials.preload();
-		new OBJLoader()
-			.setMaterials(materials)
-			.setPath("models/")
-			.load(
-				"fish-2.obj",
-				function (group) {
-					let mesh0;
-					mesh0 = group.children[0];
-					mesh0.material.side = THREE.DoubleSide;
-					mesh0.position.y = 0.25;
-					mesh0.scale.set(0.25, 0.25, 0.25);
-					markerRoot1.add(mesh0);
-				},
-				onProgress,
-				onError
+	function loadModel(model) {
+		let loader = new GLTFLoader().setPath("../3d/");
+		loader.load(model + ".glb", (glb) => {
+			obj = glb.scene;
+			obj.scale.set(
+				0.5 * glb.scene.scale.x,
+				0.5 * glb.scene.scale.y,
+				0.5 * glb.scene.scale.z
 			);
-	});
+
+			markerRoot1.add(obj);
+		});
+	}
+
+	loadModel("chair");
+
+	// new MTLLoader().setPath("models/").load("fish-2.mtl", function (materials) {
+	// 	materials.preload();
+	// 	new OBJLoader()
+	// 		.setMaterials(materials)
+	// 		.setPath("models/")
+	// 		.load(
+	// 			"fish-2.obj",
+	// 			function (group) {
+	// 				let mesh0;
+	// 				mesh0 = group.children[0];
+	// 				mesh0.material.side = THREE.DoubleSide;
+	// 				mesh0.position.y = 0.25;
+	// 				mesh0.scale.set(0.25, 0.25, 0.25);
+	// 				markerRoot1.add(mesh0);
+	// 			},
+	// 			onProgress,
+	// 			onError
+	// 		);
+	// });
 }
 
 function update() {
