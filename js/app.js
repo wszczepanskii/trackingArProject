@@ -115,7 +115,7 @@ function initialize() {
 		console.log("An error happened");
 	}
 
-	const loadModel = (model) => {
+	function loadModel(model) {
 		let loader = new GLTFLoader().setPath("../3d/");
 		loader.load(model + ".glb", (glb) => {
 			obj = glb.scene;
@@ -127,7 +127,7 @@ function initialize() {
 
 			markerRoot1.add(obj);
 		});
-	};
+	}
 
 	loadModel("chair");
 }
