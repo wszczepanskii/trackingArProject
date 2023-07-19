@@ -148,7 +148,7 @@ function update() {
 	if (arToolkitSource.ready !== false)
 		arToolkitContext.update(arToolkitSource.domElement);
 
-	if (hasLoaded) mixer.update(deltaTime);
+	if (hasLoaded && mixer !== undefined) mixer.update(deltaTime);
 }
 
 function render() {
