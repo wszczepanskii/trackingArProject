@@ -1,13 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 	<head>
-		<title>Tracking AR</title>
-		<meta charset="utf-8" />
 		<meta
 			name="viewport"
-			content="width=device-width, initial-scale=1.0, user-scalable=no"
+			content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
 		/>
-
+		<title>Hello, AR Cube!</title>
+		<!-- include three.js library -->
+		<!-- <script src="/trackingArProject/js/three.js"></script> -->
+		<!-- include jsartookit -->
+		<!-- <script src="/trackingArProject/js/artoolkit.min.js"></script> -->
+		<!-- <script src="/trackingArProject/js/artoolkit.api.js"></script> -->
+		<!-- include threex.artoolkit -->
+		<!-- <script src="/trackingArProject/js/threex-artoolkitsource.js"></script>
+		<script src="/trackingArProject/js/threex-artoolkitcontext.js"></script>
+		<script src="/trackingArProject/js/threex-arbasecontrols.js"></script>
+		<script src="/trackingArProject/js/threex-armarkercontrols.js"></script> -->
 		<script type="importmap">
 			{
 				"imports": {
@@ -16,16 +24,143 @@
 				}
 			}
 		</script>
-
-		<link href="./css/style.css" rel="stylesheet" />
-		<script src="./js/artoolkit.api.js"></script>
-		<script src="./js/artoolkit.min.js"></script>
-		<script src="./js/threex-arbasecontrols.js" type="module"></script>
-		<script src="./js/threex-armarkercontrols.js"></script>
-		<script src="./js/threex-artoolkitcontext.js" type="module"></script>
-		<script src="./js/threex-artoolkitsource.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r120/three.min.js"
+			integrity="sha512-kgjZw3xjgSUDy9lTU085y+UCVPz3lhxAtdOVkcO4O2dKl2VSBcNsQ9uMg/sXIM4SoOmCiYfyFO/n1/3GSXZtSg=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/ar.js/2.2.2/aframe-ar.min.js"
+			integrity="sha512-Vwmkm1QOtdVNLuwkxaXXyB/aBY0lZvI4NTv+83gs+pU0HuZ2j3inyfgpMpJHYRS0O3PoHEhO6mKomMYBKXRMWw=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
 	</head>
-	<body>
-		<script src="./js/app.js" type="module"></script>
+
+	<body style="margin: 0px; overflow: hidden; font-family: Monospace">
+		<script src="js/app.js">
+			// var scene, camera, renderer, clock, deltaTime, totalTime;
+
+			// var arToolkitSource, arToolkitContext;
+
+			// var markerRoot1, markerRoot2;
+
+			// var mesh1;
+
+			// initialize();
+			// animate();
+
+			// function initialize() {
+			// 	scene = new THREE.Scene();
+
+			// 	let ambientLight = new THREE.AmbientLight(0xcccccc, 0.5);
+			// 	scene.add(ambientLight);
+
+			// 	camera = new THREE.Camera();
+			// 	scene.add(camera);
+
+			// 	renderer = new THREE.WebGLRenderer({
+			// 		antialias: true,
+			// 		alpha: true,
+			// 	});
+			// 	renderer.setClearColor(new THREE.Color("lightgrey"), 0);
+			// 	renderer.setSize(640, 480);
+			// 	renderer.domElement.style.position = "absolute";
+			// 	renderer.domElement.style.top = "0px";
+			// 	renderer.domElement.style.left = "0px";
+			// 	document.body.appendChild(renderer.domElement);
+
+			// 	clock = new THREE.Clock();
+			// 	deltaTime = 0;
+			// 	totalTime = 0;
+
+			// 	////////////////////////////////////////////////////////////
+			// 	// setup arToolkitSource
+			// 	////////////////////////////////////////////////////////////
+
+			// 	arToolkitSource = new THREEx.ArToolkitSource({
+			// 		sourceType: "webcam",
+			// 	});
+
+			// 	function onResize() {
+			// 		arToolkitSource.onResize();
+			// 		arToolkitSource.copySizeTo(renderer.domElement);
+			// 		if (arToolkitContext.arController !== null) {
+			// 			arToolkitSource.copySizeTo(arToolkitContext.arController.canvas);
+			// 		}
+			// 	}
+
+			// 	arToolkitSource.init(function onReady() {
+			// 		onResize();
+			// 	});
+
+			// 	// handle resize event
+			// 	window.addEventListener("resize", function () {
+			// 		onResize();
+			// 	});
+
+			// 	////////////////////////////////////////////////////////////
+			// 	// setup arToolkitContext
+			// 	////////////////////////////////////////////////////////////
+
+			// 	// create atToolkitContext
+			// 	arToolkitContext = new THREEx.ArToolkitContext({
+			// 		cameraParametersUrl: "js/camera_para.dat",
+			// 		detectionMode: "mono",
+			// 	});
+
+			// 	// copy projection matrix to camera when initialization complete
+			// 	arToolkitContext.init(function onCompleted() {
+			// 		camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
+			// 	});
+
+			// 	////////////////////////////////////////////////////////////
+			// 	// setup markerRoots
+			// 	////////////////////////////////////////////////////////////
+
+			// 	// build markerControls
+			// 	markerRoot1 = new THREE.Group();
+			// 	scene.add(markerRoot1);
+			// 	let markerControls1 = new THREEx.ArMarkerControls(
+			// 		arToolkitContext,
+			// 		markerRoot1,
+			// 		{
+			// 			type: "pattern",
+			// 			patternUrl: "markers/hiro.patt",
+			// 		}
+			// 	);
+
+			// 	let geometry1 = new THREE.CubeGeometry(1, 1, 1);
+			// 	let material1 = new THREE.MeshNormalMaterial({
+			// 		transparent: true,
+			// 		opacity: 0.5,
+			// 		side: THREE.DoubleSide,
+			// 	});
+
+			// 	mesh1 = new THREE.Mesh(geometry1, material1);
+			// 	mesh1.position.y = 0.5;
+
+			// 	markerRoot1.add(mesh1);
+			// }
+
+			// function update() {
+			// 	// update artoolkit on every frame
+			// 	if (arToolkitSource.ready !== false)
+			// 		arToolkitContext.update(arToolkitSource.domElement);
+			// }
+
+			// function render() {
+			// 	renderer.render(scene, camera);
+			// }
+
+			// function animate() {
+			// 	requestAnimationFrame(animate);
+			// 	deltaTime = clock.getDelta();
+			// 	totalTime += deltaTime;
+			// 	update();
+			// 	render();
+			// }
+		</script>
 	</body>
 </html>
