@@ -97,8 +97,6 @@ function initialize() {
 		}
 	);
 
-	let geometry1 = new THREE.PlaneGeometry(1, 1, 4, 4);
-	let loader = new THREE.TextureLoader();
 	let material1 = new THREE.MeshBasicMaterial({
 		color: 0x0000ff,
 		opacity: 0.5,
