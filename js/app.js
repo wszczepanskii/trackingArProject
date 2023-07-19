@@ -1,7 +1,6 @@
 // import * as THREE from "three";
 // import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 // import { ARButton } from "three/addons/webxr/ARButton.js";
-// import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
 import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
 // import { RGBELoader } from "three/addons/loaders/lwo/RGBELoader.js";
@@ -98,6 +97,7 @@ function initialize() {
 	);
 
 	let geometry1 = new THREE.PlaneGeometry(1, 1, 4, 4);
+	let loader = new THREE.TextureLoader();
 	let material1 = new THREE.MeshBasicMaterial({
 		color: 0x0000ff,
 		opacity: 0.5,
