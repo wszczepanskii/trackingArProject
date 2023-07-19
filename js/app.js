@@ -10,7 +10,7 @@ var arToolkitSource, arToolkitContext;
 
 var markerRoot1, markerRoot2;
 
-var mesh1;
+var mesh1, obj;
 
 initialize();
 animate();
@@ -95,17 +95,40 @@ function initialize() {
 		}
 	);
 
-	let geometry1 = new THREE.CapsuleGeometry(1, 1, 4, 8);
-	let material1 = new THREE.MeshNormalMaterial({
-		transparent: true,
+	let geometry1 = new THREE.PlaneGeometry(1, 1, 4, 4);
+	let material1 = new THREE.MeshBasicMaterial({
+		color: 0x0000ff,
 		opacity: 0.5,
-		side: THREE.DoubleSide,
 	});
 
 	mesh1 = new THREE.Mesh(geometry1, material1);
-	mesh1.position.y = 0.5;
+	mesh1.rotation.x = -Math.PI / 2;
 
 	markerRoot1.add(mesh1);
+
+	function onProgress(xhr) {
+		console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+	}
+
+	function onError(xhr) {
+		console.log("An error happened");
+	}
+
+	const loadModel = (model) => {
+		let loader = new GLTFLoader().setPath("../3d/");
+		loader.load(model + ".glb", (glb) => {
+			obj = glb.scene;
+			obj.scale.set(
+				0.5 * glb.scene.scale.x,
+				0.5 * glb.scene.scale.y,
+				0.5 * glb.scene.scale.z
+			);
+
+			markerRoot1.add(obj);
+		});
+	};
+
+	loadModel("chair");
 }
 
 function update() {
