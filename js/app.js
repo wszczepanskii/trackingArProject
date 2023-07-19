@@ -12,7 +12,11 @@ var arToolkitSource, arToolkitContext;
 
 var markerRoot1, markerRoot2;
 
-var mesh1, obj;
+var mesh1,
+	obj,
+	mixer,
+	hasLoaded = false,
+	gltf;
 
 initialize();
 animate();
@@ -97,16 +101,6 @@ function initialize() {
 		}
 	);
 
-	let material1 = new THREE.MeshBasicMaterial({
-		color: 0x0000ff,
-		opacity: 0.5,
-	});
-
-	mesh1 = new THREE.Mesh(geometry1, material1);
-	mesh1.rotation.x = -Math.PI / 2;
-
-	markerRoot1.add(mesh1);
-
 	function onProgress(xhr) {
 		console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
 	}
@@ -127,7 +121,19 @@ function initialize() {
 					1.2 * glb.scene.scale.z
 				);
 
+				hasLoaded = true;
+
 				markerRoot1.add(obj);
+
+				mixer = new THREE.AnimationMixer(obj);
+				const clips = glb.animations;
+				const clip = THREE.AnimationClip.findByName(clips, "Take 001");
+				const action = mixer.clipAction(clip);
+				action.play();
+
+				clips.forEach((clip) => {
+					mixer.clipAction(clip).play();
+				});
 			},
 			onProgress,
 			onError
@@ -135,32 +141,14 @@ function initialize() {
 	}
 
 	loadModel("doc_animated");
-
-	// new MTLLoader().setPath("models/").load("fish-2.mtl", function (materials) {
-	// 	materials.preload();
-	// 	new OBJLoader()
-	// 		.setMaterials(materials)
-	// 		.setPath("models/")
-	// 		.load(
-	// 			"fish-2.obj",
-	// 			function (group) {
-	// 				let mesh0;
-	// 				mesh0 = group.children[0];
-	// 				mesh0.material.side = THREE.DoubleSide;
-	// 				mesh0.position.y = 0.25;
-	// 				mesh0.scale.set(0.25, 0.25, 0.25);
-	// 				markerRoot1.add(mesh0);
-	// 			},
-	// 			onProgress,
-	// 			onError
-	// 		);
-	// });
 }
 
 function update() {
 	// update artoolkit on every frame
 	if (arToolkitSource.ready !== false)
 		arToolkitContext.update(arToolkitSource.domElement);
+
+	if (hasLoaded) mixer.update(deltaTime);
 }
 
 function render() {
