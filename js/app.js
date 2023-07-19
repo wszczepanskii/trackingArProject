@@ -1,8 +1,9 @@
 // import * as THREE from "three.js";
 // import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 // import { ARButton } from "three/addons/webxr/ARButton.js";
-import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+// import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 // import { RGBELoader } from "three/addons/loaders/lwo/RGBELoader.js";
+import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/loaders/GLTFLoader.js";
 
 var scene, camera, renderer, clock, deltaTime, totalTime;
 
