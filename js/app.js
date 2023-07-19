@@ -118,7 +118,7 @@ function initialize() {
 	}
 
 	function loadModel(model) {
-		let loader = new GLTFLoader().setPath("js/");
+		let loader = new GLTFLoader().setPath("models/");
 		loader.load(
 			model + ".glb",
 			(glb) => {
