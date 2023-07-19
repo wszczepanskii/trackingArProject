@@ -136,7 +136,7 @@ function initialize() {
 		);
 	}
 
-	loadModel("chair");
+	loadModel("doc_animated");
 
 	// new MTLLoader().setPath("models/").load("fish-2.mtl", function (materials) {
 	// 	materials.preload();
