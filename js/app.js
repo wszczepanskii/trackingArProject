@@ -95,7 +95,7 @@ function initialize() {
 		}
 	);
 
-	let geometry1 = new THREE.CapsuleGeometry(1, 1, 1);
+	let geometry1 = new THREE.CapsuleGeometry(1, 1, 4, 8);
 	let material1 = new THREE.MeshNormalMaterial({
 		transparent: true,
 		opacity: 0.5,
