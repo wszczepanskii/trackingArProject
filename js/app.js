@@ -123,11 +123,11 @@ function initialize() {
 			model + ".glb",
 			(glb) => {
 				obj = glb.scene;
-				obj.scale.set(
-					0.5 * glb.scene.scale.x,
-					0.5 * glb.scene.scale.y,
-					0.5 * glb.scene.scale.z
-				);
+				// obj.scale.set(
+				// 	0.5 * glb.scene.scale.x,
+				// 	0.5 * glb.scene.scale.y,
+				// 	0.5 * glb.scene.scale.z
+				// );
 
 				markerRoot1.add(obj);
 			},
