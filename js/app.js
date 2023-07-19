@@ -113,7 +113,7 @@ function initialize() {
 	}
 
 	function onError(xhr) {
-		console.log("An error happened");
+		console.error(xhr);
 	}
 
 	// function loadModel(model) {
@@ -140,6 +140,7 @@ function initialize() {
 			.load(
 				"fish-2.obj",
 				function (group) {
+					let mesh0;
 					mesh0 = group.children[0];
 					mesh0.material.side = THREE.DoubleSide;
 					mesh0.position.y = 0.25;
