@@ -16,5 +16,6 @@
 	},
 	"devDependencies": {
 		"vite": "^4.4.4"
-	}
+	},
+	"homepage": "https://github.com/wszczepanskii/trackingArProject"
 }
