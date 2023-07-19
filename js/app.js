@@ -118,17 +118,22 @@ function initialize() {
 	}
 
 	function loadModel(model) {
-		let loader = new GLTFLoader().setPath("../3d/");
-		loader.load(model + ".glb", (glb) => {
-			obj = glb.scene;
-			obj.scale.set(
-				0.5 * glb.scene.scale.x,
-				0.5 * glb.scene.scale.y,
-				0.5 * glb.scene.scale.z
-			);
+		let loader = new GLTFLoader().setPath("/trackingArProject/3d/");
+		loader.load(
+			model + ".glb",
+			(glb) => {
+				obj = glb.scene;
+				obj.scale.set(
+					0.5 * glb.scene.scale.x,
+					0.5 * glb.scene.scale.y,
+					0.5 * glb.scene.scale.z
+				);
 
-			markerRoot1.add(obj);
-		});
+				markerRoot1.add(obj);
+			},
+			onProgress,
+			onError
+		);
 	}
 
 	loadModel("chair");
