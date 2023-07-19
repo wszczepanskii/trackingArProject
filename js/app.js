@@ -1,9 +1,8 @@
-// import * as THREE from "three.js";
+// import * as THREE from "three";
 // import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 // import { ARButton } from "three/addons/webxr/ARButton.js";
-// import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 // import { RGBELoader } from "three/addons/loaders/lwo/RGBELoader.js";
-import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/loaders/GLTFLoader.js";
 
 var scene, camera, renderer, clock, deltaTime, totalTime;
 
@@ -116,7 +115,7 @@ function initialize() {
 	}
 
 	function loadModel(model) {
-		let loader = new GLTFLoader().setPath("../3d/");
+		let loader = new GLTFLoader().setPath("/trackingArProject/3d/");
 		loader.load(model + ".glb", (glb) => {
 			obj = glb.scene;
 			obj.scale.set(
