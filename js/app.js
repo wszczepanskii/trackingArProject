@@ -115,7 +115,7 @@ function initialize() {
 	}
 
 	function loadModel(model) {
-		let loader = new GLTFLoader().setPath("/trackingArProject/3d/");
+		let loader = new GLTFLoader().setPath("../3d/");
 		loader.load(model + ".glb", (glb) => {
 			obj = glb.scene;
 			obj.scale.set(
