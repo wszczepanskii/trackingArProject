@@ -126,6 +126,7 @@ function initialize() {
 
 				hasLoaded = true;
 
+				obj.position.y = 0.25;
 				markerRoot1.add(obj);
 
 				mixer = new THREE.AnimationMixer(obj);
