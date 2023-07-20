@@ -95,6 +95,15 @@ function initialize() {
 		}
 	);
 
+	let geometry1 = new THREE.PlaneGeometry(1, 1, 4, 4);
+	let material1 = new THREE.MeshBasicMaterial({
+		color: 0x0000ff,
+		opacity: 0.5,
+	});
+	mesh1 = new THREE.Mesh(geometry1, material1);
+	mesh1.rotation.x = -Math.PI / 2;
+	markerRoot1.add(mesh1);
+
 	function onProgress(xhr) {
 		console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
 	}
