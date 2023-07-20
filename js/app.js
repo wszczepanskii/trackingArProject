@@ -92,6 +92,7 @@ function initialize() {
 		{
 			type: "pattern",
 			patternUrl: "markers/hiro.patt",
+			smoothCount: "10",
 		}
 	);
 
