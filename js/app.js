@@ -91,7 +91,7 @@ function initialize() {
 		markerRoot1,
 		{
 			type: "pattern",
-			patternUrl: "markers/hiro.patt",
+			patternUrl: "markers/frame.patt",
 			smoothCount: "10",
 		}
 	);
