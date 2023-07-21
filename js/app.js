@@ -71,8 +71,7 @@ function initialize() {
 	// create atToolkitContext
 	arToolkitContext = new THREEx.ArToolkitContext({
 		cameraParametersUrl: "js/camera_para.dat",
-		detectionMode: "mono_and_matrix",
-		matrixCodeType: '3x3_HAMMING63',
+		detectionMode: "mono",
 	});
 
 	// copy projection matrix to camera when initialization complete
@@ -91,8 +90,8 @@ function initialize() {
 		arToolkitContext,
 		markerRoot1,
 		{
-			type: "barcode",
-			// patternUrl: "markers/pattern-qrcode.patt",
+			type: "pattern",
+			patternUrl: "markers/hiro.patt",
 			// smoothCount: "10",
 		}
 	);
