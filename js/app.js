@@ -168,7 +168,7 @@ animationBtn.addEventListener("click", () => {
 		clicked = true;
 
 		mixer = new THREE.AnimationMixer(glbScene);
-		const clips = glb.animations;
+		const clips = glbModel.animations;
 		const clip = THREE.AnimationClip.findByName(clips, "Take 001");
 		const action = mixer.clipAction(clip);
 		action.play();
