@@ -1,0 +1,29 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  overflow-x: hidden;
+}
+
+.play-animation {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  border: none;
+  background-color: #23a0df;
+  color: white;
+  padding: 10px 40px;
+  border-radius: 60px;
+  transition: background-color 0.3s;
+  z-index: 1000;
+  cursor: pointer;
+}
+.play-animation:hover {
+  background-color: #1b7dae;
+}/*# sourceMappingURL=style.css.map */
