@@ -18,7 +18,7 @@ animate();
 function initialize() {
 	scene = new THREE.Scene();
 
-	let ambientLight = new THREE.AmbientLight(0xcccccc, 1);
+	let ambientLight = new THREE.AmbientLight(0xcccccc, 0.5);
 	scene.add(ambientLight);
 
 	console.log(ambientLight.position);
@@ -72,7 +72,7 @@ function initialize() {
 	// create atToolkitContext
 	arToolkitContext = new THREEx.ArToolkitContext({
 		cameraParametersUrl: "js/camera_para.dat",
-		detectionMode: "mono",
+		detectionMode: "mono_and_matrix",
 	});
 
 	// copy projection matrix to camera when initialization complete
@@ -93,7 +93,7 @@ function initialize() {
 		{
 			type: "pattern",
 			patternUrl: "markers/hiro.patt",
-			changeMatrixMode: "cameraTransformMatrix",
+			// changeMatrixMode: "cameraTransformMatrix",
 			// smoothCount: "10",
 		}
 	);
