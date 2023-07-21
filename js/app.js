@@ -18,7 +18,7 @@ animate();
 function initialize() {
 	scene = new THREE.Scene();
 
-	let ambientLight = new THREE.AmbientLight(0xcccccc, 0.5);
+	let ambientLight = new THREE.AmbientLight(0xcccccc, 1);
 	scene.add(ambientLight);
 
 	camera = new THREE.Camera();
@@ -48,10 +48,10 @@ function initialize() {
 	});
 
 	function onResize() {
-		arToolkitSource.onResize();
-		arToolkitSource.copySizeTo(renderer.domElement);
+		arToolkitSource.onResizeElement();
+		arToolkitSource.copyElementSizeTo(renderer.domElement);
 		if (arToolkitContext.arController !== null) {
-			arToolkitSource.copySizeTo(arToolkitContext.arController.canvas);
+			arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas);
 		}
 	}
 
