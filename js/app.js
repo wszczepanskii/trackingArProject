@@ -18,8 +18,10 @@ animate();
 function initialize() {
 	scene = new THREE.Scene();
 
-	let ambientLight = new THREE.AmbientLight(0xcccccc, 0.5);
+	let ambientLight = new THREE.AmbientLight(0xcccccc, 1);
 	scene.add(ambientLight);
+
+	console.log(ambientLight.position);
 
 	camera = new THREE.Camera();
 	scene.add(camera);
