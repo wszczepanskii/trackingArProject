@@ -146,7 +146,7 @@ function initialize() {
 		);
 	}
 
-	loadModel("doc_animated_light");
+	loadModel("doc_animated_light2");
 }
 
 function update() {
