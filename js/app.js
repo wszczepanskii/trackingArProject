@@ -6,11 +6,14 @@ var arToolkitSource, arToolkitContext;
 
 var markerRoot1, markerRoot2;
 
+const animationBtn = document.querySelector(".play-animation");
+
 var mesh1,
-	obj,
+	glbScene,
 	mixer,
 	hasLoaded = false,
-	gltf;
+	glbModel,
+	clicked = false;
 
 initialize();
 animate();
@@ -118,8 +121,9 @@ function initialize() {
 		loader.load(
 			model + ".glb",
 			(glb) => {
-				obj = glb.scene;
-				obj.scale.set(
+				glbScene = glb.scene;
+				glbModel = glb;
+				glbScene.scale.set(
 					1.2 * glb.scene.scale.x,
 					1.2 * glb.scene.scale.y,
 					1.2 * glb.scene.scale.z
@@ -127,19 +131,9 @@ function initialize() {
 
 				hasLoaded = true;
 
-				obj.position.y = 0.25;
-				obj.rotation.x = -Math.PI / 2;
-				markerRoot1.add(obj);
-
-				mixer = new THREE.AnimationMixer(obj);
-				const clips = glb.animations;
-				const clip = THREE.AnimationClip.findByName(clips, "Take 001");
-				const action = mixer.clipAction(clip);
-				action.play();
-
-				clips.forEach((clip) => {
-					mixer.clipAction(clip).play();
-				});
+				glbScene.position.y = 0.25;
+				glbScene.rotation.x = -Math.PI / 2;
+				markerRoot1.add(glbScene);
 			},
 			onProgress,
 			onError
@@ -154,7 +148,7 @@ function update() {
 	if (arToolkitSource.ready !== false)
 		arToolkitContext.update(arToolkitSource.domElement);
 
-	if (hasLoaded && mixer !== undefined) mixer.update(deltaTime);
+	if (hasLoaded && mixer !== undefined && clicked) mixer.update(deltaTime);
 }
 
 function render() {
@@ -168,3 +162,19 @@ function animate() {
 	update();
 	render();
 }
+
+animationBtn.addEventListener("click", () => {
+	if (hasLoaded) {
+		clicked = true;
+
+		mixer = new THREE.AnimationMixer(glbScene);
+		const clips = glb.animations;
+		const clip = THREE.AnimationClip.findByName(clips, "Take 001");
+		const action = mixer.clipAction(clip);
+		action.play();
+
+		clips.forEach((clip) => {
+			mixer.clipAction(clip).play();
+		});
+	}
+});
