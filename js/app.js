@@ -21,8 +21,6 @@ function initialize() {
 	let ambientLight = new THREE.AmbientLight(0xcccccc, 0.5);
 	scene.add(ambientLight);
 
-	console.log(ambientLight.position);
-
 	camera = new THREE.Camera();
 	scene.add(camera);
 
@@ -31,6 +29,7 @@ function initialize() {
 		alpha: true,
 	});
 	renderer.setClearColor(new THREE.Color("lightgrey"), 0);
+	renderer.setSize(640, 480);
 	renderer.domElement.style.position = "absolute";
 	renderer.domElement.style.top = "0px";
 	renderer.domElement.style.left = "0px";
@@ -93,8 +92,7 @@ function initialize() {
 		{
 			type: "pattern",
 			patternUrl: "markers/hiro.patt",
-			// changeMatrixMode: "cameraTransformMatrix",
-			// smoothCount: "10",
+			smoothCount: "10",
 		}
 	);
 
