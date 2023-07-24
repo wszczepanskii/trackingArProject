@@ -9,7 +9,6 @@ var markerRoot1, markerRoot2;
 const animationBtn = document.querySelector(".play-animation");
 
 let width = window.innerWidth;
-console.log(width);
 let height = window.innerHeight;
 
 var mesh1,
@@ -53,10 +52,6 @@ function initialize() {
 
 	arToolkitSource = new THREEx.ArToolkitSource({
 		sourceType: "webcam",
-		sourceWidth: height,
-		sourceHeight: width,
-		displayWidth: height,
-		displayHeight: width,
 	});
 
 	function onResize() {
@@ -85,8 +80,6 @@ function initialize() {
 		cameraParametersUrl: "js/camera_para.dat",
 		detectionMode: "mono_and_matrix",
 		// matrixCodeType: "3x3",
-		canvasWidth: height,
-		canvasHeight: width,
 	});
 
 	// copy projection matrix to camera when initialization complete
