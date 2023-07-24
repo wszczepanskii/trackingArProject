@@ -98,7 +98,7 @@ function initialize() {
 			patternUrl: "markers/vhsoft_pattern.patt",
 			// barcodeValue: "6",
 			// smoothCount: "10",
-			// changeMatrixMode: "cameraTransformMatrix",
+			changeMatrixMode: "cameraTransformMatrix",
 		}
 	);
 
