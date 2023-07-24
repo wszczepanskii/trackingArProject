@@ -49,6 +49,10 @@ function initialize() {
 
 	arToolkitSource = new THREEx.ArToolkitSource({
 		sourceType: "webcam",
+		sourceWidth: window.innerWidth,
+		sourceHeight: window.innerHeight,
+		displayWidth: window.innerWidth,
+		displayHeight: window.innerHeight,
 	});
 
 	function onResize() {
@@ -77,6 +81,8 @@ function initialize() {
 		cameraParametersUrl: "js/camera_para.dat",
 		detectionMode: "mono_and_matrix",
 		// matrixCodeType: "3x3",
+		canvasWidth: window.innerWidth,
+		canvasHeight: window.innerHeight,
 	});
 
 	// copy projection matrix to camera when initialization complete
