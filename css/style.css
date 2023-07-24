@@ -8,7 +8,7 @@
 
 body {
   font-family: "Montserrat", sans-serif;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .play-animation {
@@ -26,4 +26,11 @@ body {
 }
 .play-animation:hover {
   background-color: #1b7dae;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  outline: none;
 }/*# sourceMappingURL=style.css.map */
