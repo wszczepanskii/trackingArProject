@@ -8,9 +8,6 @@ var markerRoot1, markerRoot2;
 
 const animationBtn = document.querySelector(".play-animation");
 
-let width = window.innerWidth;
-let height = window.innerHeight;
-
 var mesh1,
 	glbScene,
 	mixer,
@@ -34,8 +31,7 @@ function initialize() {
 		antialias: true,
 		alpha: true,
 	});
-	// renderer.setClearColor(new THREE.Color("lightgrey"), 0);
-	renderer.setPixelRatio(window.devicePixelRatio);
+	renderer.setClearColor(new THREE.Color("lightgrey"), 0);
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	// renderer.domElement.style.position = "absolute";
 	// renderer.domElement.style.top = "0px";
