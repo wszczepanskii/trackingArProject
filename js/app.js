@@ -33,9 +33,9 @@ function initialize() {
 	});
 	renderer.setClearColor(new THREE.Color("lightgrey"), 0);
 	renderer.setSize(window.innerWidth, window.innerHeight);
-	renderer.domElement.style.position = "absolute";
-	renderer.domElement.style.top = "0px";
-	renderer.domElement.style.left = "0px";
+	// renderer.domElement.style.position = "absolute";
+	// renderer.domElement.style.top = "0px";
+	// renderer.domElement.style.left = "0px";
 	document.body.appendChild(renderer.domElement);
 
 	clock = new THREE.Clock();
