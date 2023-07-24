@@ -75,7 +75,7 @@ function initialize() {
 	arToolkitContext = new THREEx.ArToolkitContext({
 		cameraParametersUrl: "js/camera_para.dat",
 		detectionMode: "mono_and_matrix",
-		matrixCodeType: "3x3",
+		// matrixCodeType: "3x3",
 	});
 
 	// copy projection matrix to camera when initialization complete
@@ -94,11 +94,11 @@ function initialize() {
 		arToolkitContext,
 		markerRoot1,
 		{
-			type: "barcode",
-			// patternUrl: "markers/hiro.patt",
-			barcodeValue: "6",
+			type: "pattern",
+			patternUrl: "markers/vhsoft_pattern.patt",
+			// barcodeValue: "6",
 			// smoothCount: "10",
-			changeMatrixMode: "cameraTransformMatrix",
+			// changeMatrixMode: "cameraTransformMatrix",
 		}
 	);
 
