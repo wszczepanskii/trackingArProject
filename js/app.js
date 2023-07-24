@@ -8,8 +8,9 @@ var markerRoot1, markerRoot2;
 
 const animationBtn = document.querySelector(".play-animation");
 
-let width = document.body.clientWidth;
-let height = document.body.clientHeight;
+let width = window.innerWidth;
+console.log(width);
+let height = window.innerHeight;
 
 var mesh1,
 	glbScene,
@@ -52,10 +53,10 @@ function initialize() {
 
 	arToolkitSource = new THREEx.ArToolkitSource({
 		sourceType: "webcam",
-		sourceWidth: width,
-		sourceHeight: height,
-		displayWidth: width,
-		displayHeight: height,
+		sourceWidth: height,
+		sourceHeight: width,
+		displayWidth: height,
+		displayHeight: width,
 	});
 
 	function onResize() {
