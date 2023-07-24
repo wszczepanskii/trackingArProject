@@ -8,7 +8,7 @@
 
 body {
 	font-family: "Montserrat", sans-serif;
-	overflow-x: hidden;
+	overflow: hidden;
 }
 
 .play-animation {
@@ -21,10 +21,17 @@ body {
 	padding: 10px 40px;
 	border-radius: 60px;
 	transition: background-color 0.3s;
-    z-index: 1000;
+	z-index: 1000;
 	cursor: pointer;
 
 	&:hover {
 		background-color: #1b7dae;
 	}
+}
+
+.webgl {
+	position: fixed;
+	top: 0;
+	left: 0;
+	outline: none;
 }
