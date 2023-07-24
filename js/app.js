@@ -32,7 +32,7 @@ function initialize() {
 		alpha: true,
 	});
 	renderer.setClearColor(new THREE.Color("lightgrey"), 0);
-	renderer.setSize(640, 480);
+	renderer.setSize(window.innerWidth, window.innerHeight);
 	renderer.domElement.style.position = "absolute";
 	renderer.domElement.style.top = "0px";
 	renderer.domElement.style.left = "0px";
@@ -75,6 +75,7 @@ function initialize() {
 	arToolkitContext = new THREEx.ArToolkitContext({
 		cameraParametersUrl: "js/camera_para.dat",
 		detectionMode: "mono_and_matrix",
+		matrixCodeType: "3x3",
 	});
 
 	// copy projection matrix to camera when initialization complete
@@ -93,9 +94,10 @@ function initialize() {
 		arToolkitContext,
 		markerRoot1,
 		{
-			type: "pattern",
-			patternUrl: "markers/hiro.patt",
-			smoothCount: "10",
+			type: "barcode",
+			// patternUrl: "markers/hiro.patt",
+			barcodeValue: "6",
+			// smoothCount: "10",
 		}
 	);
 
