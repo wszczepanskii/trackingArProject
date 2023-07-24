@@ -158,7 +158,7 @@ function initialize() {
 
 function update() {
 	// update artoolkit on every frame
-	if (arToolkitSource.ready !== false) pdate(arToolkitSource.domElement);
+	if (arToolkitSource.ready !== false) update(arToolkitSource.domElement);
 
 	if (hasLoaded && mixer !== undefined && clicked) mixer.update(deltaTime);
 }
