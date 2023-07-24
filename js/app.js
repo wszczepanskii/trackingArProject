@@ -85,8 +85,8 @@ function initialize() {
 		cameraParametersUrl: "js/camera_para.dat",
 		detectionMode: "mono_and_matrix",
 		// matrixCodeType: "3x3",
-		canvasWidth: width,
-		canvasHeight: height,
+		canvasWidth: height,
+		canvasHeight: width,
 	});
 
 	// copy projection matrix to camera when initialization complete
