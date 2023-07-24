@@ -98,6 +98,7 @@ function initialize() {
 			// patternUrl: "markers/hiro.patt",
 			barcodeValue: "6",
 			// smoothCount: "10",
+			changeMatrixMode: "cameraTransformMatrix",
 		}
 	);
 
