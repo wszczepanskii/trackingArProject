@@ -8,9 +8,6 @@ var markerRoot1, markerRoot2;
 
 const animationBtn = document.querySelector(".play-animation");
 
-let width = document.body.clientWidth;
-let height = document.body.clientHeight;
-
 var mesh1,
 	glbScene,
 	mixer,
@@ -52,10 +49,10 @@ function initialize() {
 
 	arToolkitSource = new THREEx.ArToolkitSource({
 		sourceType: "webcam",
-		sourceWidth: width,
-		sourceHeight: height,
-		displayWidth: width,
-		displayHeight: height,
+		sourceWidth: window.innerWidth,
+		sourceHeight: window.innerHeight,
+		displayWidth: window.innerWidth,
+		displayHeight: window.innerHeight,
 	});
 
 	function onResize() {
@@ -84,8 +81,8 @@ function initialize() {
 		cameraParametersUrl: "js/camera_para.dat",
 		detectionMode: "mono_and_matrix",
 		// matrixCodeType: "3x3",
-		canvasWidth: width,
-		canvasHeight: height,
+		canvasWidth: window.innerWidth,
+		canvasHeight: window.innerHeight,
 	});
 
 	// copy projection matrix to camera when initialization complete
@@ -158,7 +155,8 @@ function initialize() {
 
 function update() {
 	// update artoolkit on every frame
-	if (arToolkitSource.ready !== false) update(arToolkitSource.domElement);
+	if (arToolkitSource.ready !== false)
+		arToolkitContext.update(arToolkitSource.domElement);
 
 	if (hasLoaded && mixer !== undefined && clicked) mixer.update(deltaTime);
 }
