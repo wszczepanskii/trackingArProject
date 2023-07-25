@@ -134,8 +134,8 @@ function initialize() {
 
 				hasLoaded = true;
 
-				glbScene.position.y = -0.25;
-				glbScene.position.z = 1;
+				glbScene.position.y = 0.25;
+				// glbScene.position.z = 1;
 				glbScene.rotation.x = -Math.PI / 2;
 				markerRoot1.add(glbScene);
 			},
