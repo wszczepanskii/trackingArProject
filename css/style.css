@@ -26,4 +26,8 @@ body {
 }
 .play-animation:hover {
   background-color: #1b7dae;
+}
+
+video {
+  height: 100vh !important;
 }/*# sourceMappingURL=style.css.map */
