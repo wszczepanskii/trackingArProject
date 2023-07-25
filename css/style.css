@@ -31,8 +31,10 @@ body {
 video {
   height: 100% !important;
   z-index: 10000;
+  display: block;
 }
 
 canvas {
+  width: 100% !important;
   height: 100% !important;
 }/*# sourceMappingURL=style.css.map */
