@@ -30,4 +30,8 @@ body {
 
 video {
   height: 100% !important;
+}
+
+canvas {
+  width: 100% !important;
 }/*# sourceMappingURL=style.css.map */
