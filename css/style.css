@@ -30,4 +30,9 @@ body {
 }
 .play-animation:hover {
   background-color: #1b7dae;
+}
+
+canvas {
+  height: 100vh !important;
+  display: block;
 }/*# sourceMappingURL=style.css.map */
