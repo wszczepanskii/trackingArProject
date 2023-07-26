@@ -21,7 +21,9 @@ animate();
 function initialize() {
 	scene = new THREE.Scene();
 
-	let ambientLight = new THREE.AmbientLight(0xcccccc, 1);
+	let sceneLight = new THREE.PointLight(0xffffff, 0.5, 100);
+	scene.add(sceneLight);
+	let ambientLight = new THREE.AmbientLight(0x666666);
 	scene.add(ambientLight);
 
 	camera = new THREE.Camera();
@@ -32,7 +34,7 @@ function initialize() {
 		alpha: true,
 	});
 	renderer.setClearColor(new THREE.Color("lightgrey"), 0);
-	renderer.setSize(window.innerWidth, window.innerHeight);
+	// renderer.setSize(window.innerWidth, window.innerHeight);
 	renderer.domElement.style.position = "absolute";
 	renderer.domElement.style.top = "0px";
 	renderer.domElement.style.left = "0px";
@@ -74,7 +76,10 @@ function initialize() {
 	// create atToolkitContext
 	arToolkitContext = new THREEx.ArToolkitContext({
 		cameraParametersUrl: "js/camera_para.dat",
+		maxDetectionRate: 60,
 		detectionMode: "mono_and_matrix",
+		canvasWidth: 640,
+		canvasHeight: 480,
 		// matrixCodeType: "3x3",
 	});
 
@@ -101,6 +106,16 @@ function initialize() {
 			// changeMatrixMode: "cameraTransformMatrix",
 		}
 	);
+
+	// let sceneGroup = new THREE.Group();
+	// scene.add(sceneGroup);
+
+	// let smoothedControls = new THREEx.ArSmoothedControls(sceneGroup, {
+	// 	lerpPosition: 0.6,
+	// 	lerpQuaternion: 0.6,
+	// 	lerpScale: 1,
+	// 	minUnvisibleDelay: 0.25, // when marker not visible, time to wait until model disappears
+	// });
 
 	// let geometry1 = new THREE.PlaneGeometry(1, 1, 4, 4);
 	// let material1 = new THREE.MeshBasicMaterial({
@@ -134,7 +149,7 @@ function initialize() {
 
 				hasLoaded = true;
 
-				glbScene.position.y = -0.25
+				glbScene.position.y = -0.25;
 				glbScene.position.z = 0.2;
 				glbScene.rotation.x = -Math.PI / 2;
 				markerRoot1.add(glbScene);
