@@ -21,9 +21,9 @@ animate();
 function initialize() {
 	scene = new THREE.Scene();
 
-	let sceneLight = new THREE.PointLight(0xffffff, 0.5, 100);
-	scene.add(sceneLight);
-	let ambientLight = new THREE.AmbientLight(0x666666);
+	// let sceneLight = new THREE.PointLight(0xffffff, 0.5, 100);
+	// scene.add(sceneLight);
+	let ambientLight = new THREE.AmbientLight(0xcccccc, 1);
 	scene.add(ambientLight);
 
 	camera = new THREE.Camera();
@@ -34,7 +34,7 @@ function initialize() {
 		alpha: true,
 	});
 	renderer.setClearColor(new THREE.Color("lightgrey"), 0);
-	// renderer.setSize(window.innerWidth, window.innerHeight);
+	renderer.setSize(window.innerWidth, window.innerHeight);
 	renderer.domElement.style.position = "absolute";
 	renderer.domElement.style.top = "0px";
 	renderer.domElement.style.left = "0px";
@@ -141,16 +141,16 @@ function initialize() {
 			(glb) => {
 				glbScene = glb.scene;
 				glbModel = glb;
-				glbScene.scale.set(
-					1.2 * glb.scene.scale.x,
-					1.2 * glb.scene.scale.y,
-					1.2 * glb.scene.scale.z
-				);
+				// glbScene.scale.set(
+				// 	1.2 * glb.scene.scale.x,
+				// 	1.2 * glb.scene.scale.y,
+				// 	1.2 * glb.scene.scale.z
+				// );
 
 				hasLoaded = true;
 
-				// glbScene.position.y = -0.25;
-				// glbScene.position.z = 0.2;
+				glbScene.position.y = -0.25;
+				glbScene.position.z = 0.2;
 				glbScene.rotation.x = -Math.PI / 2;
 				markerRoot1.add(glbScene);
 			},
