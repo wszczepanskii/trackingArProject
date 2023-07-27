@@ -78,8 +78,8 @@ function initialize() {
 		cameraParametersUrl: "js/camera_para.dat",
 		maxDetectionRate: 60,
 		detectionMode: "mono_and_matrix",
-		// canvasWidth: 640,
-		// canvasHeight: 480,
+		canvasWidth: 1280,
+		canvasHeight: 960,
 	});
 
 	// copy projection matrix to camera when initialization complete
