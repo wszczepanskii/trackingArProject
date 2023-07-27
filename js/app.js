@@ -141,9 +141,9 @@ function initialize() {
 				glbScene = glb.scene;
 				glbModel = glb;
 				glbScene.scale.set(
-					1.2 * glb.scene.scale.x,
-					1.2 * glb.scene.scale.y,
-					1.2 * glb.scene.scale.z
+					1.5 * glb.scene.scale.x,
+					1.5 * glb.scene.scale.y,
+					1.5 * glb.scene.scale.z
 				);
 
 				hasLoaded = true;
