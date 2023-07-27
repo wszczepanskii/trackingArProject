@@ -78,9 +78,8 @@ function initialize() {
 		cameraParametersUrl: "js/camera_para.dat",
 		maxDetectionRate: 60,
 		detectionMode: "mono_and_matrix",
-		canvasWidth: 640,
-		canvasHeight: 480,
-		// matrixCodeType: "3x3",
+		// canvasWidth: 640,
+		// canvasHeight: 480,
 	});
 
 	// copy projection matrix to camera when initialization complete
@@ -141,15 +140,15 @@ function initialize() {
 			(glb) => {
 				glbScene = glb.scene;
 				glbModel = glb;
-				// glbScene.scale.set(
-				// 	1.2 * glb.scene.scale.x,
-				// 	1.2 * glb.scene.scale.y,
-				// 	1.2 * glb.scene.scale.z
-				// );
+				glbScene.scale.set(
+					1.2 * glb.scene.scale.x,
+					1.2 * glb.scene.scale.y,
+					1.2 * glb.scene.scale.z
+				);
 
 				hasLoaded = true;
 
-				glbScene.position.y = -0.25;
+				// glbScene.position.y = -0.25;
 				glbScene.position.z = 0.2;
 				glbScene.rotation.x = -Math.PI / 2;
 				markerRoot1.add(glbScene);
