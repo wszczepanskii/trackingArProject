@@ -163,6 +163,7 @@ function initialize() {
 				glbScene.position.y = -0.25;
 				glbScene.position.z = 0.2;
 				glbScene.rotation.x = -Math.PI / 2;
+				glbScene.rotation.y = THREE.MathUtils.degToRad(30);
 				markerRoot1.add(glbScene);
 			},
 			onProgress,
@@ -170,7 +171,7 @@ function initialize() {
 		);
 	}
 
-	loadModel("doc_animated");
+	loadModel("doc_animated_light2");
 }
 
 function update() {
