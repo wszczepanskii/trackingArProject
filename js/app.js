@@ -13,6 +13,7 @@ var mesh1,
 	mixer,
 	hasLoaded = false,
 	glbModel,
+	glbAnimations,
 	clicked = false;
 
 initialize();
