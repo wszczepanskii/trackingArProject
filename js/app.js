@@ -52,8 +52,8 @@ function initialize() {
 
 	arToolkitSource = new THREEx.ArToolkitSource({
 		sourceType: "webcam",
-		sourceWidth: window.innerWidth > window.innerHeight ? 640 : 480,
-		sourceHeight: window.innerWidth > window.innerHeight ? 480 : 640,
+		sourceWidth: window.innerWidth > window.innerHeight ? 1280 : 960,
+		sourceHeight: window.innerWidth > window.innerHeight ? 960 : 1280,
 	});
 
 	arToolkitSource.init(function onReady() {
@@ -85,10 +85,10 @@ function initialize() {
 	// create atToolkitContext
 	arToolkitContext = new THREEx.ArToolkitContext({
 		cameraParametersUrl: "js/camera_para.dat",
-		maxDetectionRate: 60,
+		// maxDetectionRate: 60,
 		detectionMode: "mono_and_matrix",
-		canvasWidth: 1280,
-		canvasHeight: 960,
+		// canvasWidth: 1280,
+		// canvasHeight: 960,
 	});
 
 	// copy projection matrix to camera when initialization complete
