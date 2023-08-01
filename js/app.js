@@ -1,14 +1,14 @@
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
-var scene, camera, renderer, clock, deltaTime, totalTime;
+let scene, camera, renderer, clock, deltaTime, totalTime;
 
-var arToolkitSource, arToolkitContext;
+let arToolkitSource, arToolkitContext;
 
-var markerRoot1, markerRoot2;
+let markerRoot1, markerRoot2;
 
 const animationBtn = document.querySelector(".play-animation");
 
-var mesh1,
+let mesh1,
 	glbScene,
 	mixer,
 	hasLoaded = false,
@@ -16,10 +16,7 @@ var mesh1,
 	glbAnimations,
 	clicked = false;
 
-initialize();
-animate();
-
-function initialize() {
+const initialize = () => {
 	scene = new THREE.Scene();
 
 	let ambientLight = new THREE.AmbientLight(0xcccccc, 1);
@@ -51,20 +48,20 @@ function initialize() {
 		sourceType: "webcam",
 	});
 
-	function onResize() {
+	const onResize = () => {
 		arToolkitSource.onResizeElement();
 		arToolkitSource.copyElementSizeTo(renderer.domElement);
 		if (arToolkitContext.arController !== null) {
 			arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas);
 		}
-	}
+	};
 
-	arToolkitSource.init(function onReady() {
+	arToolkitSource.init(() => {
 		onResize();
 	});
 
 	// handle resize event
-	window.addEventListener("resize", function () {
+	window.addEventListener("resize", () => {
 		onResize();
 	});
 
@@ -78,7 +75,7 @@ function initialize() {
 		detectionMode: "mono_and_matrix",
 	});
 
-	arToolkitContext.init(function onCompleted() {
+	arToolkitContext.init(() => {
 		camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
 	});
 
@@ -98,15 +95,15 @@ function initialize() {
 		}
 	);
 
-	function onProgress(xhr) {
+	const onProgress = (xhr) => {
 		console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-	}
+	};
 
-	function onError(xhr) {
+	const onError = (xhr) => {
 		console.error(xhr);
-	}
+	};
 
-	function loadModel(model) {
+	const loadModel = (model) => {
 		let loader = new GLTFLoader().setPath("models/");
 		loader.load(
 			model + ".glb",
@@ -130,30 +127,30 @@ function initialize() {
 			onProgress,
 			onError
 		);
-	}
+	};
 
 	loadModel("doc_animated_light2");
-}
+};
 
-function update() {
+const update = () => {
 	// update artoolkit on every frame
 	if (arToolkitSource.ready !== false)
 		arToolkitContext.update(arToolkitSource.domElement);
 
 	if (hasLoaded && mixer !== undefined && clicked) mixer.update(deltaTime);
-}
+};
 
-function render() {
+const render = () => {
 	renderer.render(scene, camera);
-}
+};
 
-function animate() {
+const animate = () => {
 	requestAnimationFrame(animate);
 	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
 	update();
 	render();
-}
+};
 
 animationBtn.addEventListener("click", () => {
 	if (hasLoaded && glbAnimations !== 0) {
@@ -172,3 +169,6 @@ animationBtn.addEventListener("click", () => {
 		alert("Model nie posiada animacji");
 	}
 });
+
+initialize();
+animate();
