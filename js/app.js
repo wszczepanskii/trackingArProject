@@ -10,9 +10,10 @@ const animationBtn = document.querySelector(".play-animation");
 
 var mesh1,
 	glbScene,
+	glbModel,
+	glbAnimations,
 	mixer,
 	hasLoaded = false,
-	glbModel,
 	clicked = false;
 
 initialize();
@@ -34,7 +35,8 @@ function initialize() {
 		alpha: true,
 	});
 	renderer.setClearColor(new THREE.Color("lightgrey"), 0);
-	renderer.setSize(window.innerWidth, window.innerHeight);
+	// renderer.setSize(window.innerWidth, window.innerHeight);
+	renderer.setSize(640, 480);
 	renderer.domElement.style.position = "absolute";
 	renderer.domElement.style.top = "0px";
 	renderer.domElement.style.left = "0px";
@@ -50,18 +52,15 @@ function initialize() {
 
 	arToolkitSource = new THREEx.ArToolkitSource({
 		sourceType: "webcam",
+		sourceWidth: window.innerWidth > window.innerHeight ? 640 : 480,
+		sourceHeight: window.innerWidth > window.innerHeight ? 480 : 640,
 	});
 
-	function onResize() {
-		arToolkitSource.onResizeElement();
-		arToolkitSource.copyElementSizeTo(renderer.domElement);
-		if (arToolkitContext.arController !== null) {
-			arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas);
-		}
-	}
-
 	arToolkitSource.init(function onReady() {
-		onResize();
+		// window.arToolkitSource = arToolkitSource;
+		setTimeout(() => {
+			onResize();
+		}, 1000);
 	});
 
 	// handle resize event
@@ -69,6 +68,16 @@ function initialize() {
 		onResize();
 	});
 
+	function onResize() {
+		arToolkitSource.onResizeElement();
+		arToolkitSource.copyElementSizeTo(renderer.domElement);
+		if (arToolkitContext.arController !== null) {
+			console.log("dap");
+			arToolkitSource.copyElementSizeTo(
+				window.arToolkitContext.arController.canvas
+			);
+		}
+	}
 	////////////////////////////////////////////////////////////
 	// setup arToolkitContext
 	////////////////////////////////////////////////////////////
@@ -85,6 +94,7 @@ function initialize() {
 	// copy projection matrix to camera when initialization complete
 	arToolkitContext.init(function onCompleted() {
 		camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
+		window.arToolkitContext = arToolkitContext;
 	});
 
 	////////////////////////////////////////////////////////////
@@ -140,6 +150,8 @@ function initialize() {
 			(glb) => {
 				glbScene = glb.scene;
 				glbModel = glb;
+				glbAnimations = glb.animations.length;
+
 				glbScene.scale.set(
 					1.5 * glb.scene.scale.x,
 					1.5 * glb.scene.scale.y,
@@ -148,7 +160,7 @@ function initialize() {
 
 				hasLoaded = true;
 
-				// glbScene.position.y = -0.25;
+				glbScene.position.y = -0.25;
 				glbScene.position.z = 0.2;
 				glbScene.rotation.x = -Math.PI / 2;
 				markerRoot1.add(glbScene);
@@ -158,7 +170,7 @@ function initialize() {
 		);
 	}
 
-	loadModel("doc_animated_light2");
+	loadModel("doc_animated");
 }
 
 function update() {
@@ -182,7 +194,7 @@ function animate() {
 }
 
 animationBtn.addEventListener("click", () => {
-	if (hasLoaded) {
+	if (hasLoaded && glbAnimations !== 0) {
 		clicked = true;
 
 		mixer = new THREE.AnimationMixer(glbScene);
@@ -194,5 +206,7 @@ animationBtn.addEventListener("click", () => {
 		clips.forEach((clip) => {
 			mixer.clipAction(clip).play();
 		});
+	} else if (hasLoaded && glbAnimations === 0) {
+		alert("Model nie posiada animacji");
 	}
 });
