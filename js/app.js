@@ -1,25 +1,26 @@
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
-let scene, camera, renderer, clock, deltaTime, totalTime;
+var scene, camera, renderer, clock, deltaTime, totalTime;
 
-let arToolkitSource, arToolkitContext;
+var arToolkitSource, arToolkitContext;
 
-let markerRoot1, markerRoot2;
+var markerRoot1, markerRoot2;
 
 const animationBtn = document.querySelector(".play-animation");
 
-let glbScene,
-	glbModel,
-	glbAnimations,
+var mesh1,
+	glbScene,
 	mixer,
 	hasLoaded = false,
+	glbModel,
 	clicked = false;
 
-const initialize = () => {
+initialize();
+animate();
+
+function initialize() {
 	scene = new THREE.Scene();
 
-	// let sceneLight = new THREE.PointLight(0xffffff, 0.5, 100);
-	// scene.add(sceneLight);
 	let ambientLight = new THREE.AmbientLight(0xcccccc, 1);
 	scene.add(ambientLight);
 
@@ -49,22 +50,20 @@ const initialize = () => {
 		sourceType: "webcam",
 	});
 
-	const onResize = () => {
+	function onResize() {
 		arToolkitSource.onResizeElement();
 		arToolkitSource.copyElementSizeTo(renderer.domElement);
 		if (arToolkitContext.arController !== null) {
-			arToolkitSource.copyElementSizeTo(
-				window.arToolkitContext.arController.canvas
-			);
+			arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas);
 		}
-	};
+	}
 
-	arToolkitSource.init(() => {
+	arToolkitSource.init(function onReady() {
 		onResize();
 	});
 
 	// handle resize event
-	window.addEventListener("resize", () => {
+	window.addEventListener("resize", function () {
 		onResize();
 	});
 
@@ -80,7 +79,6 @@ const initialize = () => {
 
 	arToolkitContext.init(function onCompleted() {
 		camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
-		window.arToolkitContext = arToolkitContext;
 	});
 
 	////////////////////////////////////////////////////////////
@@ -99,15 +97,15 @@ const initialize = () => {
 		}
 	);
 
-	const onProgress = (xhr) => {
+	function onProgress(xhr) {
 		console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-	};
+	}
 
-	const onError = (xhr) => {
+	function onError(xhr) {
 		console.error(xhr);
-	};
+	}
 
-	const loadModel = (model) => {
+	function loadModel(model) {
 		let loader = new GLTFLoader().setPath("models/");
 		loader.load(
 			model + ".glb",
@@ -117,46 +115,44 @@ const initialize = () => {
 				glbAnimations = glb.animations.length;
 
 				glbScene.scale.set(
-					1.5 * glb.scene.scale.x,
-					1.5 * glb.scene.scale.y,
-					1.5 * glb.scene.scale.z
+					1.2 * glb.scene.scale.x,
+					1.2 * glb.scene.scale.y,
+					1.2 * glb.scene.scale.z
 				);
 
 				hasLoaded = true;
 
-				glbScene.position.y = -0.25;
-				glbScene.position.z = 0.5;
-
+				glbScene.position.y = 0.25;
 				glbScene.rotation.x = -Math.PI / 2;
 				markerRoot1.add(glbScene);
 			},
 			onProgress,
 			onError
 		);
-	};
+	}
 
 	loadModel("doc_animated_light2");
-};
+}
 
-const update = () => {
+function update() {
 	// update artoolkit on every frame
 	if (arToolkitSource.ready !== false)
 		arToolkitContext.update(arToolkitSource.domElement);
 
 	if (hasLoaded && mixer !== undefined && clicked) mixer.update(deltaTime);
-};
+}
 
-const render = () => {
+function render() {
 	renderer.render(scene, camera);
-};
+}
 
-const animate = () => {
+function animate() {
 	requestAnimationFrame(animate);
 	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
 	update();
 	render();
-};
+}
 
 animationBtn.addEventListener("click", () => {
 	if (hasLoaded && glbAnimations !== 0) {
@@ -175,6 +171,3 @@ animationBtn.addEventListener("click", () => {
 		alert("Model nie posiada animacji");
 	}
 });
-
-initialize();
-animate();
