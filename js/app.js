@@ -54,6 +54,9 @@ function initialize() {
 		sourceType: "webcam",
 		sourceWidth: window.innerWidth > window.innerHeight ? 1280 : 960,
 		sourceHeight: window.innerWidth > window.innerHeight ? 960 : 1280,
+
+		displayWidth: window.innerWidth > window.innerHeight ? 1280 : 960,
+		displayHeight: window.innerWidth > window.innerHeight ? 960 : 1280,
 	});
 
 	arToolkitSource.init(function onReady() {
