@@ -161,7 +161,8 @@ function initialize() {
 				hasLoaded = true;
 
 				glbScene.position.y = -0.25;
-				glbScene.position.z = 0.2;
+				glbScene.position.z = 0.5;
+				glbScene.position.x = -0.2;
 				glbScene.rotation.x = -Math.PI / 2;
 				glbScene.rotation.y = THREE.MathUtils.degToRad(30);
 				markerRoot1.add(glbScene);
