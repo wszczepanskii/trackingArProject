@@ -35,8 +35,8 @@ function initialize() {
 		alpha: true,
 	});
 	renderer.setClearColor(new THREE.Color("lightgrey"), 0);
-	// renderer.setSize(window.innerWidth, window.innerHeight);
-	renderer.setSize(640, 480);
+	renderer.setSize(window.innerWidth, window.innerHeight);
+	// renderer.setSize(640, 480);
 	renderer.domElement.style.position = "absolute";
 	renderer.domElement.style.top = "0px";
 	renderer.domElement.style.left = "0px";
@@ -55,8 +55,8 @@ function initialize() {
 		sourceWidth: window.innerWidth > window.innerHeight ? 1280 : 960,
 		sourceHeight: window.innerWidth > window.innerHeight ? 960 : 1280,
 
-		displayWidth: window.innerWidth > window.innerHeight ? 1280 : 960,
-		displayHeight: window.innerWidth > window.innerHeight ? 960 : 1280,
+		// displayWidth: window.innerWidth > window.innerHeight ? 1280 : 960,
+		// displayHeight: window.innerWidth > window.innerHeight ? 960 : 1280,
 	});
 
 	arToolkitSource.init(function onReady() {
@@ -75,7 +75,6 @@ function initialize() {
 		arToolkitSource.onResizeElement();
 		arToolkitSource.copyElementSizeTo(renderer.domElement);
 		if (arToolkitContext.arController !== null) {
-			console.log("dap");
 			arToolkitSource.copyElementSizeTo(
 				window.arToolkitContext.arController.canvas
 			);
