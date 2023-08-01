@@ -175,7 +175,7 @@ function initialize() {
 		);
 	}
 
-	loadModel("doc_animated_light2");
+	loadModel("doc_animated_bigger");
 }
 
 function update() {
