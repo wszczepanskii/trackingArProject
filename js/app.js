@@ -1,14 +1,14 @@
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
-var scene, camera, renderer, clock, deltaTime, totalTime;
+let scene, camera, renderer, clock, deltaTime, totalTime;
 
-var arToolkitSource, arToolkitContext;
+let arToolkitSource, arToolkitContext;
 
-var markerRoot1, markerRoot2;
+let markerRoot1, markerRoot2;
 
 const animationBtn = document.querySelector(".play-animation");
 
-var mesh1,
+let mesh1,
 	glbScene,
 	mixer,
 	hasLoaded = false,
@@ -16,10 +16,9 @@ var mesh1,
 	glbAnimations,
 	clicked = false;
 
-initialize();
-animate();
+let loader, model1, model2, modelAnimations;
 
-function initialize() {
+const initialize = () => {
 	scene = new THREE.Scene();
 
 	let ambientLight = new THREE.AmbientLight(0xcccccc, 1);
@@ -51,20 +50,20 @@ function initialize() {
 		sourceType: "webcam",
 	});
 
-	function onResize() {
+	const onResize = () => {
 		arToolkitSource.onResizeElement();
 		arToolkitSource.copyElementSizeTo(renderer.domElement);
 		if (arToolkitContext.arController !== null) {
 			arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas);
 		}
-	}
+	};
 
-	arToolkitSource.init(function onReady() {
+	arToolkitSource.init(() => {
 		onResize();
 	});
 
 	// handle resize event
-	window.addEventListener("resize", function () {
+	window.addEventListener("resize", () => {
 		onResize();
 	});
 
@@ -99,6 +98,17 @@ function initialize() {
 		}
 	);
 
+	markerRoot2 = new THREE.Group();
+	scene.add(markerRoot2);
+	let markerControls2 = new THREEx.ArMarkerControls(
+		arToolkitContext,
+		markerRoot2,
+		{
+			type: "pattern",
+			patternUrl: "markers/hiro.patt",
+		}
+	);
+
 	// let geometry1 = new THREE.PlaneGeometry(1, 1, 4, 4);
 	// let material1 = new THREE.MeshBasicMaterial({
 	// 	color: 0x0000ff,
@@ -108,74 +118,125 @@ function initialize() {
 	// mesh1.rotation.x = -Math.PI / 2;
 	// markerRoot1.add(mesh1);
 
-	function onProgress(xhr) {
+	const onProgress = (xhr) => {
 		console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-	}
+	};
 
-	function onError(xhr) {
+	const onError = (xhr) => {
 		console.error(xhr);
-	}
+	};
 
-	function loadModel(model) {
-		let loader = new GLTFLoader().setPath("models/");
-		loader.load(
-			model + ".glb",
-			(glb) => {
-				glbScene = glb.scene;
-				glbModel = glb;
-				glbAnimations = glb.animations.length;
-				glbScene.scale.set(
-					1.2 * glb.scene.scale.x,
-					1.2 * glb.scene.scale.y,
-					1.2 * glb.scene.scale.z
-				);
+	const laodModel = (url) => {
+		return new Promise((resolve) => {
+			new GLTFLoader().load(url, resolve);
+		});
+	};
 
-				hasLoaded = true;
+	let p1 = laodModel("models/doc_animated_light2.glb").then((result) => {
+		model1 = result.scene;
+		modelAnimations = result.animations;
+	});
 
-				glbScene.position.y = 0.25;
-				glbScene.rotation.x = -Math.PI / 2;
-				markerRoot1.add(glbScene);
-			},
-			onProgress,
-			onError
+	let p2 = laodModel("models/chair.glb").then((result) => {
+		model2 = result.scene;
+	});
+
+	Promise.all([p1, p2]).then(() => {
+		model1.scale.set(
+			1.2 * model1.scale.x,
+			1.2 * model1.scale.y,
+			1.2 * model1.scale.z
 		);
-	}
 
-	loadModel("doc_animated_light2");
-}
+		model1.position.y = 0.25;
+		model1.rotation.x = -Math.PI / 2;
 
-function update() {
+		model2.scale.set(
+			1.2 * model2.scale.x,
+			1.2 * model2.scale.y,
+			1.2 * model2.scale.z
+		);
+
+		model2.position.y = 0.25;
+		model2.rotation.x = -Math.PI / 2;
+
+		markerRoot1.add(model1);
+		markerRoot2.add(model2);
+
+		hasLoaded = true;
+	});
+
+	// const loadModel = (model) => {
+	// 	loader = new GLTFLoader().setPath("models/");
+	// 	loader.load(
+	// 		model + ".glb",
+	// 		(glb) => {
+	// 			glbScene = glb.scene;
+	// 			glbModel = glb;
+	// 			glbAnimations = glb.animations.length;
+	// 			glbScene.scale.set(
+	// 				1.2 * glb.scene.scale.x,
+	// 				1.2 * glb.scene.scale.y,
+	// 				1.2 * glb.scene.scale.z
+	// 			);
+
+	// 			hasLoaded = true;
+
+	// 			console.log(glb);
+
+	// 			glbScene.position.y = 0.25;
+	// 			glbScene.rotation.x = -Math.PI / 2;
+	// 			markerRoot1.add(glbScene)
+	// 		},
+	// 		onProgress,
+	// 		onError
+	// 	);
+	// };
+
+	// loadModel("doc_animated_light2");
+	// setTimeout(() => {
+	// 	markerRoot1.add(glbScene);
+	// }, 200);
+
+	// loadModel("chair");
+	// setTimeout(() => {
+	// 	markerRoot2.add(glbScene);
+	// }, 200);
+};
+
+const update = () => {
 	// update artoolkit on every frame
 	if (arToolkitSource.ready !== false)
 		arToolkitContext.update(arToolkitSource.domElement);
 
 	if (hasLoaded && mixer !== undefined && clicked) mixer.update(deltaTime);
-}
+};
 
-function render() {
+const render = () => {
 	renderer.render(scene, camera);
-}
+};
 
-function animate() {
+const animate = () => {
 	requestAnimationFrame(animate);
 	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
 	update();
 	render();
-}
+};
+
+initialize();
+animate();
 
 animationBtn.addEventListener("click", () => {
-	if (hasLoaded && glbAnimations !== 0) {
+	if (hasLoaded) {
 		clicked = true;
-		mixer = new THREE.AnimationMixer(glbScene);
-		const clips = glbModel.animations;
+		mixer = new THREE.AnimationMixer(model1);
+		const clips = modelAnimations;
 		const clip = THREE.AnimationClip.findByName(clips, "Take 001");
 		const action = mixer.clipAction(clip);
 		action.play();
 		clips.forEach((clip) => {
 			mixer.clipAction(clip).play();
 		});
-	} else if (hasLoaded && glbAnimations === 0) {
-		alert("Model nie posiada animacji");
 	}
 });
