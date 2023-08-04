@@ -52,10 +52,10 @@ const initialize = () => {
 
 	const onResize = () => {
 		arToolkitSource.onResizeElement();
-		arToolkitSource.copyElementSizeTo(renderer.domElement);
-		if (arToolkitContext.arController !== null) {
-			arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas);
-		}
+		// arToolkitSource.copyElementSizeTo(renderer.domElement);
+		// if (arToolkitContext.arController !== null) {
+		// 	arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas);
+		// }
 	};
 
 	arToolkitSource.init(() => {
