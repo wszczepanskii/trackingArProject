@@ -1,22 +1,24 @@
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
-let scene, camera, renderer, clock, deltaTime, totalTime;
+var scene, camera, renderer, clock, deltaTime, totalTime;
 
-let arToolkitSource, arToolkitContext;
+var arToolkitSource, arToolkitContext;
 
-let markerRoot1, markerRoot2;
+var markerRoot1, markerRoot2;
 
 const animationBtn = document.querySelector(".play-animation");
 
-let mesh1,
+var mesh1,
 	glbScene,
 	mixer,
 	hasLoaded = false,
 	glbModel,
-	glbAnimations,
 	clicked = false;
 
-const initialize = () => {
+initialize();
+animate();
+
+function initialize() {
 	scene = new THREE.Scene();
 
 	let ambientLight = new THREE.AmbientLight(0xcccccc, 1);
@@ -30,7 +32,7 @@ const initialize = () => {
 		alpha: true,
 	});
 	renderer.setClearColor(new THREE.Color("lightgrey"), 0);
-	renderer.setSize(window.innerWidth, window.innerHeight);
+	renderer.setSize(640, 480);
 	renderer.domElement.style.position = "absolute";
 	renderer.domElement.style.top = "0px";
 	renderer.domElement.style.left = "0px";
@@ -48,20 +50,20 @@ const initialize = () => {
 		sourceType: "webcam",
 	});
 
-	const onResize = () => {
+	function onResize() {
 		arToolkitSource.onResizeElement();
 		arToolkitSource.copyElementSizeTo(renderer.domElement);
 		if (arToolkitContext.arController !== null) {
 			arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas);
 		}
-	};
+	}
 
-	arToolkitSource.init(() => {
+	arToolkitSource.init(function onReady() {
 		onResize();
 	});
 
 	// handle resize event
-	window.addEventListener("resize", () => {
+	window.addEventListener("resize", function () {
 		onResize();
 	});
 
@@ -75,7 +77,8 @@ const initialize = () => {
 		detectionMode: "mono_and_matrix",
 	});
 
-	arToolkitContext.init(() => {
+	// copy projection matrix to camera when initialization complete
+	arToolkitContext.init(function onCompleted() {
 		camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
 	});
 
@@ -95,23 +98,30 @@ const initialize = () => {
 		}
 	);
 
-	const onProgress = (xhr) => {
+	// let geometry1 = new THREE.PlaneGeometry(1, 1, 4, 4);
+	// let material1 = new THREE.MeshBasicMaterial({
+	// 	color: 0x0000ff,
+	// 	opacity: 0.5,
+	// });
+	// mesh1 = new THREE.Mesh(geometry1, material1);
+	// mesh1.rotation.x = -Math.PI / 2;
+	// markerRoot1.add(mesh1);
+
+	function onProgress(xhr) {
 		console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-	};
+	}
 
-	const onError = (xhr) => {
+	function onError(xhr) {
 		console.error(xhr);
-	};
+	}
 
-	const loadModel = (model) => {
+	function loadModel(model) {
 		let loader = new GLTFLoader().setPath("models/");
 		loader.load(
 			model + ".glb",
 			(glb) => {
 				glbScene = glb.scene;
 				glbModel = glb;
-				glbAnimations = glb.animations.length;
-
 				glbScene.scale.set(
 					1.2 * glb.scene.scale.x,
 					1.2 * glb.scene.scale.y,
@@ -127,37 +137,37 @@ const initialize = () => {
 			onProgress,
 			onError
 		);
-	};
+	}
 
 	loadModel("doc_animated_light2");
-};
+}
 
-const update = () => {
+function update() {
 	// update artoolkit on every frame
 	if (arToolkitSource.ready !== false)
 		arToolkitContext.update(arToolkitSource.domElement);
 
 	if (hasLoaded && mixer !== undefined && clicked) mixer.update(deltaTime);
-};
+}
 
-const render = () => {
+function render() {
 	renderer.render(scene, camera);
-};
+}
 
-const animate = () => {
+function animate() {
 	requestAnimationFrame(animate);
 	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
 	update();
 	render();
-};
+}
 
 animationBtn.addEventListener("click", () => {
-	if (hasLoaded && glbAnimations !== 0) {
+	if (hasLoaded) {
 		clicked = true;
 
 		mixer = new THREE.AnimationMixer(glbScene);
-		const clips = glbModel.animations;
+		const clips = glb.animations;
 		const clip = THREE.AnimationClip.findByName(clips, "Take 001");
 		const action = mixer.clipAction(clip);
 		action.play();
@@ -165,10 +175,5 @@ animationBtn.addEventListener("click", () => {
 		clips.forEach((clip) => {
 			mixer.clipAction(clip).play();
 		});
-	} else if (hasLoaded && glbAnimations === 0) {
-		alert("Model nie posiada animacji");
 	}
 });
-
-initialize();
-animate();
