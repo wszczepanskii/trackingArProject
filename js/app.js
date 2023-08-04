@@ -13,6 +13,7 @@ var mesh1,
 	mixer,
 	hasLoaded = false,
 	glbModel,
+	glbAnimations,
 	clicked = false;
 
 initialize();
@@ -122,6 +123,7 @@ function initialize() {
 			(glb) => {
 				glbScene = glb.scene;
 				glbModel = glb;
+				glbAnimations = glb.animations.length;
 				glbScene.scale.set(
 					1.2 * glb.scene.scale.x,
 					1.2 * glb.scene.scale.y,
@@ -163,17 +165,17 @@ function animate() {
 }
 
 animationBtn.addEventListener("click", () => {
-	if (hasLoaded) {
+	if (hasLoaded && glbAnimations !== 0) {
 		clicked = true;
-
 		mixer = new THREE.AnimationMixer(glbScene);
-		const clips = glb.animations;
+		const clips = glbModel.animations;
 		const clip = THREE.AnimationClip.findByName(clips, "Take 001");
 		const action = mixer.clipAction(clip);
 		action.play();
-
 		clips.forEach((clip) => {
 			mixer.clipAction(clip).play();
 		});
+	} else if (hasLoaded && glbAnimations === 0) {
+		alert("Model nie posiada animacji");
 	}
 });
