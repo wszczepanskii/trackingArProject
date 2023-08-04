@@ -61,7 +61,7 @@ const initialize = () => {
 	arToolkitSource.init(() => {
 		setTimeout(() => {
 			onResize();
-		}, 500);
+		}, 700);
 	});
 
 	// handle resize event
