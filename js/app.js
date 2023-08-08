@@ -1,4 +1,5 @@
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 
 let scene, camera, renderer, clock, deltaTime, totalTime;
 
@@ -15,6 +16,8 @@ let mesh1,
 	glbModel,
 	glbAnimations,
 	clicked = false;
+
+let composer1;
 
 let loader, model1, model2, modelAnimations;
 
@@ -33,11 +36,14 @@ const initialize = () => {
 	});
 	renderer.setClearColor(new THREE.Color("lightgrey"), 0);
 	// renderer.setSize(640, 480);
+	renderer.setPixelRatio(window.devicePixelRatio);
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	renderer.domElement.style.position = "absolute";
 	renderer.domElement.style.top = "0px";
 	renderer.domElement.style.left = "0px";
 	document.body.appendChild(renderer.domElement);
+
+	composer1 = new EffectComposer(renderer);
 
 	clock = new THREE.Clock();
 	deltaTime = 0;
