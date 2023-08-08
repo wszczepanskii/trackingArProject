@@ -11,9 +11,8 @@ body {
 	overflow: hidden;
 }
 
-.play-animation {
+.btn {
 	position: absolute;
-	left: 20px;
 	bottom: 20px;
 	border: none;
 	background-color: #23a0df;
@@ -27,4 +26,12 @@ body {
 	&:hover {
 		background-color: #1b7dae;
 	}
+}
+
+.play-animation {
+	left: 20px;
+}
+
+.change-name {
+	right: 20px;
 }
