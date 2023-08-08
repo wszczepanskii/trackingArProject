@@ -12,7 +12,8 @@ const changeNameBtn = document.querySelector(".change-name");
 
 let mixer,
 	hasLoaded = false,
-	clicked = false;
+	clicked = false,
+	hasLoadedAnim = false;
 
 let composer1;
 
@@ -136,9 +137,12 @@ const initialize = () => {
 
 		modelArray[0].scene.position.y = 0.25;
 		modelArray[0].scene.rotation.x = -Math.PI / 2;
+
+		hasLoadedAnim = true;
 	});
 
 	let p2 = laodModel("models/celery.glb").then((result) => {
+		console.log("start");
 		modelArray[1] = result;
 		modelArray[1].scene.scale.set(
 			1.2 * modelArray[1].scene.scale.x,
@@ -146,14 +150,16 @@ const initialize = () => {
 			1.2 * modelArray[1].scene.scale.z
 		);
 
+		console.log("middle");
+
 		modelArray[1].scene.position.y = 0.25;
 		modelArray[1].scene.rotation.x = -Math.PI / 2;
-		console.log(hasLoaded);
 		hasLoaded = true;
+		console.log("end");
 	});
 
 	const displayModel = (idx) => {
-		Promise.all([p1]).then(() => {
+		Promise.all([p1, p2]).then(() => {
 			markerRoot1.add(modelArray[idx].scene);
 		});
 	};
@@ -221,7 +227,7 @@ initialize();
 animate();
 
 animationBtn.addEventListener("click", () => {
-	if (hasLoaded) {
+	if (hasLoadedAnim) {
 		clicked = true;
 		mixer = new THREE.AnimationMixer(model1);
 		const clips = modelAnimations;
