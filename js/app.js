@@ -153,36 +153,31 @@ const initialize = () => {
 	});
 
 	const displayModel = (idx) => {
-		Promise.all([p1, p2]).then(() => {
+		Promise.all([p1]).then(() => {
 			markerRoot1.add(modelArray[idx].scene);
 		});
 	};
 
 	// const loadModel = (idx) => {
 	// 	loader = new GLTFLoader().setPath("models/");
-	// 	loader.load(
-	// 		modelArray[idx],
-	// 		(glb) => {
-	// 			glbScene = glb.scene;
-	// 			glbModel = glb;
-	// 			glbAnimations = glb.animations.length;
-	// 			glbScene.scale.set(
-	// 				1.2 * glb.scene.scale.x,
-	// 				1.2 * glb.scene.scale.y,
-	// 				1.2 * glb.scene.scale.z
-	// 			);
+	// 	loader.load(modelArray[idx], (glb) => {
+	// 		glbScene = glb.scene;
+	// 		glbModel = glb;
+	// 		glbAnimations = glb.animations.length;
+	// 		glbScene.scale.set(
+	// 			1.2 * glb.scene.scale.x,
+	// 			1.2 * glb.scene.scale.y,
+	// 			1.2 * glb.scene.scale.z
+	// 		);
 
-	// 			hasLoaded = true;
+	// 		hasLoaded = true;
 
-	// 			console.log(glb);
+	// 		console.log(glb);
 
-	// 			glbScene.position.y = 0.25;
-	// 			glbScene.rotation.x = -Math.PI / 2;
-	// 			markerRoot1.add(glbScene);
-	// 		},
-	// 		onProgress,
-	// 		onError
-	// 	);
+	// 		glbScene.position.y = 0.25;
+	// 		glbScene.rotation.x = -Math.PI / 2;
+	// 		markerRoot1.add(glbScene);
+	// 	});
 	// };
 
 	window.addEventListener("load", displayModel(currentModelIndex));
