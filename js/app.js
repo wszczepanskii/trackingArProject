@@ -148,14 +148,42 @@ const initialize = () => {
 
 		modelArray[1].scene.position.y = 0.25;
 		modelArray[1].scene.rotation.x = -Math.PI / 2;
+		console.log(hasLoaded);
 		hasLoaded = true;
 	});
 
 	const displayModel = (idx) => {
-		Promise.all([p1]).then(() => {
+		Promise.all([p1, p2]).then(() => {
 			markerRoot1.add(modelArray[idx].scene);
 		});
 	};
+
+	// const loadModel = (idx) => {
+	// 	loader = new GLTFLoader().setPath("models/");
+	// 	loader.load(
+	// 		modelArray[idx],
+	// 		(glb) => {
+	// 			glbScene = glb.scene;
+	// 			glbModel = glb;
+	// 			glbAnimations = glb.animations.length;
+	// 			glbScene.scale.set(
+	// 				1.2 * glb.scene.scale.x,
+	// 				1.2 * glb.scene.scale.y,
+	// 				1.2 * glb.scene.scale.z
+	// 			);
+
+	// 			hasLoaded = true;
+
+	// 			console.log(glb);
+
+	// 			glbScene.position.y = 0.25;
+	// 			glbScene.rotation.x = -Math.PI / 2;
+	// 			markerRoot1.add(glbScene);
+	// 		},
+	// 		onProgress,
+	// 		onError
+	// 	);
+	// };
 
 	window.addEventListener("load", displayModel(currentModelIndex));
 
