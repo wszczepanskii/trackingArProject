@@ -151,23 +151,26 @@ const initialize = () => {
 	});
 
 	const displayModel = (idx) => {
-		Promise.all([p1]).then(() => {
+		Promise.all([p1, p2]).then(() => {
 			markerRoot1.add(modelArray[idx].scene);
 
 			hasLoaded = true;
 		});
 	};
+
 	window.addEventListener("load", displayModel(currentModelIndex));
 
 	changeNameBtn.addEventListener("click", () => {
-		if (currentModelIndex === 0) {
-			markerRoot1.remove(modelArray[0].scene);
-			currentModelIndex++;
-			displayModel(currentModelIndex);
-		} else if (currentModelIndex === 1) {
-			markerRoot1.remove(modelArray[1].scene);
-			currentModelIndex = 0;
-			displayModel(currentModelIndex);
+		if (hasLoaded) {
+			if (currentModelIndex === 0) {
+				markerRoot1.remove(modelArray[0].scene);
+				currentModelIndex++;
+				displayModel(currentModelIndex);
+			} else if (currentModelIndex === 1) {
+				markerRoot1.remove(modelArray[1].scene);
+				currentModelIndex = 0;
+				displayModel(currentModelIndex);
+			}
 		}
 	});
 };
