@@ -49,11 +49,6 @@ const initialize = () => {
 
 	arToolkitSource = new THREEx.ArToolkitSource({
 		sourceType: "webcam",
-		sourceWidth: 1920,
-		sourceHeight: 1080,
-		// resolution displayed for the source
-		displayWidth: 1920,
-		displayHeight: 1080,
 	});
 
 	const onResize = () => {
