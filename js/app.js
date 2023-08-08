@@ -28,7 +28,7 @@ const initialize = () => {
 	scene.add(camera);
 
 	renderer = new THREE.WebGLRenderer({
-		antialias: true,
+		// antialias: true,
 		alpha: true,
 	});
 	renderer.setClearColor(new THREE.Color("lightgrey"), 0);
