@@ -148,13 +148,12 @@ const initialize = () => {
 
 		modelArray[1].scene.position.y = 0.25;
 		modelArray[1].scene.rotation.x = -Math.PI / 2;
+		hasLoaded = true;
 	});
 
 	const displayModel = (idx) => {
-		Promise.all([p1, p2]).then(() => {
+		Promise.all([p1]).then(() => {
 			markerRoot1.add(modelArray[idx].scene);
-
-			hasLoaded = true;
 		});
 	};
 
