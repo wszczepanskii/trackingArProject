@@ -141,7 +141,7 @@ const initialize = () => {
 		});
 	};
 
-	let p1 = laodModel("models/celery.glb").then((result) => {
+	let p1 = laodModel("models/doc_animated_light2").then((result) => {
 		model1 = result.scene;
 		modelAnimations = result.animations;
 	});
