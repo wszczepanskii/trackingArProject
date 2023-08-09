@@ -28,12 +28,18 @@ const initialize = () => {
 	let ambientLight = new THREE.AmbientLight(0xcccccc, 1);
 	scene.add(ambientLight);
 
-	camera = new THREE.Camera();
+	camera = new THREE.PerspectiveCamera(
+		70,
+		window.innerWidth / window.innerHeight,
+		0.1,
+		1000
+	);
 	scene.add(camera);
 
 	renderer = new THREE.WebGLRenderer({
 		antialias: true,
 		alpha: true,
+		logarithmicDepthBuffer: true,
 	});
 	renderer.setClearColor(new THREE.Color("lightgrey"), 0);
 	// renderer.setSize(640, 480);
@@ -142,7 +148,7 @@ const initialize = () => {
 	});
 
 	let p2 = laodModel("models/celery.glb").then((result) => {
-		console.log("start");
+		// console.log("start");
 		modelArray[1] = result;
 		modelArray[1].scene.scale.set(
 			1.2 * modelArray[1].scene.scale.x,
@@ -150,12 +156,12 @@ const initialize = () => {
 			1.2 * modelArray[1].scene.scale.z
 		);
 
-		console.log("middle");
+		// console.log("middle");
 
 		modelArray[1].scene.position.y = 0.25;
 		modelArray[1].scene.rotation.x = -Math.PI / 2;
 		hasLoaded = true;
-		console.log("end");
+		// console.log("end");
 	});
 
 	const displayModel = (idx) => {
