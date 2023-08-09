@@ -125,7 +125,7 @@ const initialize = () => {
 		});
 	};
 
-	let p1 = laodModel("models/doc_animated_light2.glb").then((result) => {
+	let p1 = laodModel("models/doc_new.glb").then((result) => {
 		model1 = result.scene;
 		modelAnimations = result.animations;
 		modelArray[0] = result;
