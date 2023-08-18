@@ -113,6 +113,30 @@ const initialize = () => {
 			patternUrl: "markers/vhsoft_pattern.patt",
 		}
 	);
+	const planeGroup = new THREE.Group();
+
+	const geometry = new THREE.PlaneGeometry(1, 1);
+	const material = new THREE.MeshStandardMaterial({
+		color: 0x00ff00,
+		side: THREE.DoubleSide,
+	});
+	const plane = new THREE.Mesh(geometry, material);
+	plane.rotation.x = -Math.PI / 2;
+	planeGroup.add(plane);
+
+	const geometryBox = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+	const materialBox = new THREE.MeshStandardMaterial({ color: 0xff0000 });
+	const cube = new THREE.Mesh(geometryBox, materialBox);
+	scene.add(cube);
+
+	planeGroup.add(cube);
+
+	markerRoot1.add(planeGroup);
+
+	const domEvents = new THREEx.DomEvents(camera, renderer.domElement);
+	domEvents.addEventListener(cube, "click", e =>{
+		console.log("Dasdsada");
+	})
 
 	markerRoot2 = new THREE.Group();
 	scene.add(markerRoot2);
@@ -192,21 +216,21 @@ const initialize = () => {
 	// 	});
 	// };
 
-	window.addEventListener("load", displayModel(currentModelIndex));
+	// window.addEventListener("load", displayModel(currentModelIndex));
 
-	changeNameBtn.addEventListener("click", () => {
-		if (hasLoaded) {
-			if (currentModelIndex === 0) {
-				markerRoot1.remove(modelArray[0].scene);
-				currentModelIndex++;
-				displayModel(currentModelIndex);
-			} else if (currentModelIndex === 1) {
-				markerRoot1.remove(modelArray[1].scene);
-				currentModelIndex = 0;
-				displayModel(currentModelIndex);
-			}
-		}
-	});
+	// changeNameBtn.addEventListener("click", () => {
+	// 	if (hasLoaded) {
+	// 		if (currentModelIndex === 0) {
+	// 			markerRoot1.remove(modelArray[0].scene);
+	// 			currentModelIndex++;
+	// 			displayModel(currentModelIndex);
+	// 		} else if (currentModelIndex === 1) {
+	// 			markerRoot1.remove(modelArray[1].scene);
+	// 			currentModelIndex = 0;
+	// 			displayModel(currentModelIndex);
+	// 		}
+	// 	}
+	// });
 };
 
 const update = () => {
