@@ -134,9 +134,9 @@ const initialize = () => {
 	markerRoot1.add(planeGroup);
 
 	const domEvents = new THREEx.DomEvents(camera, renderer.domElement);
-	domEvents.addEventListener(cube, "click", e =>{
-		console.log("Dasdsada");
-	})
+	domEvents.addEventListener(cube, "click", (e) => {
+		alert("dsadhasdka");
+	});
 
 	markerRoot2 = new THREE.Group();
 	scene.add(markerRoot2);
