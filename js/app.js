@@ -135,7 +135,7 @@ const initialize = () => {
 
 	const domEvents = new THREEx.DomEvents(camera, renderer.domElement);
 	domEvents.addEventListener(cube, "click", (e) => {
-		alert("dsadhasdka");
+		plane.material.color.setHex(0x000ff0);
 	});
 
 	markerRoot2 = new THREE.Group();
