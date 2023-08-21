@@ -249,15 +249,15 @@ const initialize = () => {
 		if (intersection.length > 0) {
 			// console.log("Dsadsadsada");
 
-			if (!onObj) {
-				cube.material.color.setHex(0xf00ff0);
-				onObj = true;
-			} else {
-				cube.material.color.setHex(0x000ff0);
-				onObj = false;
-			}
+			// if (!onObj) {
+			// 	cube.material.color.setHex(0xf00ff0);
+			// 	onObj = true;
+			// } else {
+			// 	cube.material.color.setHex(0x000ff0);
+			// 	onObj = false;
+			// }
 
-			// window.open("https://vhsoft.io/", "_blank");
+			window.open("https://vhsoft.io/", "_blank");
 		}
 
 		render();
