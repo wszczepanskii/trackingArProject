@@ -163,7 +163,7 @@ const initialize = () => {
 		let txt_mesh = new THREE.Mesh(geometry, txt_mat);
 		txt_mesh.rotation.x = -Math.PI / 2;
 		txt_mesh.position.x = -0.25;
-		txt_mesh.position.y = 0.9;
+		txt_mesh.position.y = 0.26;
 
 		cube.add(txt_mesh);
 	});
