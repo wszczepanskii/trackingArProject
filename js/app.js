@@ -123,9 +123,9 @@ const initialize = () => {
 	);
 	const planeGroup = new THREE.Group();
 
-	const geometry = new THREE.PlaneGeometry(1, 1);
+	const geometry = new THREE.PlaneGeometry(1.5, 1.5);
 	const material = new THREE.MeshStandardMaterial({
-		// color: 0x00ff00,
+		color: 0x00ff00,
 		// side: THREE.DoubleSide,
 		transparent: true,
 		opacity: 0,
@@ -133,6 +133,8 @@ const initialize = () => {
 
 	plane = new THREE.Mesh(geometry, material);
 	plane.rotation.x = -Math.PI / 2;
+	plane.position.y = 0.4;
+
 	planeGroup.add(plane);
 
 	const geometryBox = new THREE.BoxGeometry(0.7, 0.7, 0.7);
@@ -240,7 +242,7 @@ const initialize = () => {
 		);
 
 		raycaster.setFromCamera(pointer, camera);
-		const intersection = raycaster.intersectObject(cube);
+		const intersection = raycaster.intersectObject(plane);
 
 		// console.log(intersection);
 
@@ -254,7 +256,6 @@ const initialize = () => {
 				cube.material.color.setHex(0x000ff0);
 				onObj = false;
 			}
-
 
 			// window.open("https://vhsoft.io/", "_blank");
 		}
