@@ -138,7 +138,7 @@ const initialize = () => {
 		plane.material.color.setHex(0x000ff0);
 	});
 
-	domEvents.addEventListener(plane, "click", (e) => {
+	domEvents.addEventListener(plane, "touchstart", (e) => {
 		cube.material.color.setHex(0x000ff0);
 	});
 
