@@ -235,27 +235,28 @@ const initialize = () => {
 
 	const changeColor = (e) => {
 		pointer.set(
-			(e.pageX / window.innerWidth) * 2 - 1,
-			-(e.pageY / window.innerHeight) * 2 + 1
+			(e.clientX / window.innerWidth) * 2 - 1,
+			-(e.clientY / window.innerHeight) * 2 + 1
 		);
 
 		raycaster.setFromCamera(pointer, camera);
 		const intersection = raycaster.intersectObject(cube);
 
-		console.log(intersection);
+		// console.log(intersection);
 
 		if (intersection.length > 0) {
 			// console.log("Dsadsadsada");
 
-			// if (!onObj) {
-			// 	cube.material.color.setHex(0xf00ff0);
-			// 	onObj = true;
-			// } else {
-			// 	cube.material.color.setHex(0x000ff0);
-			// 	onObj = false;
-			// }
+			if (!onObj) {
+				cube.material.color.setHex(0xf00ff0);
+				onObj = true;
+			} else {
+				cube.material.color.setHex(0x000ff0);
+				onObj = false;
+			}
 
-			window.open("https://vhsoft.io/", "_blank");
+
+			// window.open("https://vhsoft.io/", "_blank");
 		}
 
 		render();
