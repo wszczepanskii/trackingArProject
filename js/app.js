@@ -22,7 +22,6 @@ let composer1;
 let model1, modelAnimations;
 
 let modelArray = [];
-let currentModelIndex = 0;
 
 const raycaster = new THREE.Raycaster();
 const pointer = new THREE.Vector2();
@@ -247,16 +246,14 @@ const initialize = () => {
 		// console.log(intersection);
 
 		if (intersection.length > 0) {
-			// console.log("Dsadsadsada");
-
-			// if (!onObj) {
-			// 	cube.material.color.setHex(0xf00ff0);
-			// 	onObj = true;
-			// } else {
-			// 	cube.material.color.setHex(0x000ff0);
-			// 	onObj = false;
-			// }
-
+			console.log("Dsadsadsada");
+			if (!onObj) {
+				cube.material.color.setHex(0xf00ff0);
+				onObj = true;
+			} else {
+				cube.material.color.setHex(0x000ff0);
+				onObj = false;
+			}
 			window.open("https://vhsoft.io/", "_blank");
 		}
 
