@@ -23,7 +23,7 @@ let modelArray = [];
 let currentModelIndex = 0;
 
 const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector2(1, 1);
+const pointer = new THREE.Vector2();
 let onObj = false;
 
 let cube, plane;
@@ -88,8 +88,6 @@ const initialize = () => {
 	window.addEventListener("resize", () => {
 		onResize();
 	});
-
-	document.addEventListener("mousemove", onMouseMove);
 
 	////////////////////////////////////////////////////////////
 	// setup arToolkitContext
@@ -209,12 +207,14 @@ const initialize = () => {
 		});
 	};
 
-	const changeColor = () => {
-		raycaster.setFromCamera(mouse, camera);
+	const changeColor = (e) => {
+		raycaster.setFromCamera(pointer, camera);
 		const intersection = raycaster.intersectObject(cube);
 
+		console.log(intersection);
+
 		if (intersection.length > 0) {
-			console.log("Dsadsadsada");
+			// console.log("Dsadsadsada");
 
 			if (!onObj) {
 				cube.material.color.setHex(0xf00ff0);
@@ -267,13 +267,6 @@ const initialize = () => {
 	// 	}
 	// });
 };
-
-function onMouseMove(event) {
-	event.preventDefault();
-
-	mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-	mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-}
 
 const update = () => {
 	// update artoolkit on every frame
