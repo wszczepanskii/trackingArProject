@@ -1,5 +1,7 @@
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
+import { FontLoader } from "three/addons/loaders/FontLoader.js";
 
 let scene, camera, renderer, clock, deltaTime, totalTime;
 
@@ -142,6 +144,30 @@ const initialize = () => {
 
 	markerRoot1.add(planeGroup);
 
+	// text
+
+	let loader = new FontLoader();
+	loader.load("fonts/gentilis_regular.typeface.json", (font) => {
+		let geometry = new TextGeometry("Click me!", {
+			font: font,
+			size: 0.1,
+			height: 0.1,
+			curveSegments: 12,
+			bevelEnabled: false,
+			// bevelThickness: 0.1,
+			// bevelSize: 0.1,
+			// bevelSegments: 0.1,
+		});
+
+		let txt_mat = new THREE.MeshPhongMaterial({ color: 0xffffff });
+		let txt_mesh = new THREE.Mesh(geometry, txt_mat);
+		txt_mesh.rotation.x = -Math.PI / 2;
+		txt_mesh.position.x = -0.25
+		txt_mesh.position.y = 0.9
+
+		cube.add(txt_mesh);
+	});
+
 	const domEvents = new THREEx.DomEvents(camera, renderer.domElement);
 	// domEvents.addEventListener(cube, "click", (e) => {
 	// 	plane.material.color.setHex(0xf00ff0);
@@ -208,6 +234,11 @@ const initialize = () => {
 	};
 
 	const changeColor = (e) => {
+		pointer.set(
+			(e.pageX / window.innerWidth) * 2 - 1,
+			-(e.pageY / window.innerHeight) * 2 + 1
+		);
+
 		raycaster.setFromCamera(pointer, camera);
 		const intersection = raycaster.intersectObject(cube);
 
@@ -267,6 +298,13 @@ const initialize = () => {
 	// 	}
 	// });
 };
+
+// function onMouseMove(event) {
+// 	event.preventDefault();
+
+// 	pointer.x = (event.pageX / window.innerWidth) * 2 - 1;
+// 	pointer.y = -(event.pageY / window.innerHeight) * 2 + 1;
+// }
 
 const update = () => {
 	// update artoolkit on every frame
