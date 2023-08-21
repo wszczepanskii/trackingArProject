@@ -22,6 +22,12 @@ let model1, modelAnimations;
 let modelArray = [];
 let currentModelIndex = 0;
 
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2(1, 1);
+let onObj = false;
+
+let cube, plane;
+
 const initialize = () => {
 	scene = new THREE.Scene();
 
@@ -83,6 +89,8 @@ const initialize = () => {
 		onResize();
 	});
 
+	document.addEventListener("mousemove", onMouseMove);
+
 	////////////////////////////////////////////////////////////
 	// setup arToolkitContext
 	////////////////////////////////////////////////////////////
@@ -120,13 +128,13 @@ const initialize = () => {
 		color: 0x00ff00,
 		side: THREE.DoubleSide,
 	});
-	const plane = new THREE.Mesh(geometry, material);
+	plane = new THREE.Mesh(geometry, material);
 	plane.rotation.x = -Math.PI / 2;
 	planeGroup.add(plane);
 
 	const geometryBox = new THREE.BoxGeometry(0.2, 0.2, 0.2);
 	const materialBox = new THREE.MeshStandardMaterial({ color: 0xff0000 });
-	const cube = new THREE.Mesh(geometryBox, materialBox);
+	cube = new THREE.Mesh(geometryBox, materialBox);
 	scene.add(cube);
 
 	planeGroup.add(cube);
@@ -134,13 +142,13 @@ const initialize = () => {
 	markerRoot1.add(planeGroup);
 
 	const domEvents = new THREEx.DomEvents(camera, renderer.domElement);
-	domEvents.addEventListener(cube, "click", (e) => {
-		plane.material.color.setHex(0x000ff0);
-	});
+	// domEvents.addEventListener(cube, "click", (e) => {
+	// 	plane.material.color.setHex(0xf00ff0);
+	// });
 
-	domEvents.addEventListener(plane, "touchstart", (e) => {
-		cube.material.color.setHex(0x000ff0);
-	});
+	// domEvents.addEventListener(plane, "touchstart", (e) => {
+	// 	cube.material.color.setHex(0xf00ff0);
+	// });
 
 	markerRoot2 = new THREE.Group();
 	scene.add(markerRoot2);
@@ -198,6 +206,26 @@ const initialize = () => {
 		});
 	};
 
+	const changeColor = () => {
+		raycaster.setFromCamera(mouse, camera);
+		const intersection = raycaster.intersectObject(cube);
+
+		if (intersection.length > 0) {
+			console.log("Dsadsadsada");
+
+			if (!onObj) {
+				plane.material.color.setHex(0xf00ff0);
+				onObj = true;
+			} else {
+				plane.material.color.setHex(0x000ff0);
+				onObj = false;
+			}
+		}
+
+		render();
+	};
+
+	document.addEventListener("pointerdown", changeColor);
 	// const loadModel = (idx) => {
 	// 	loader = new GLTFLoader().setPath("models/");
 	// 	loader.load(modelArray[idx], (glb) => {
@@ -237,6 +265,13 @@ const initialize = () => {
 	// });
 };
 
+function onMouseMove(event) {
+	event.preventDefault();
+
+	mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+	mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+}
+
 const update = () => {
 	// update artoolkit on every frame
 	if (arToolkitSource.ready !== false)
@@ -253,6 +288,7 @@ const animate = () => {
 	requestAnimationFrame(animate);
 	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
+
 	update();
 	render();
 };
