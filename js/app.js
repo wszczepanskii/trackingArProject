@@ -125,14 +125,17 @@ const initialize = () => {
 
 	const geometry = new THREE.PlaneGeometry(1, 1);
 	const material = new THREE.MeshStandardMaterial({
-		color: 0x00ff00,
-		side: THREE.DoubleSide,
+		// color: 0x00ff00,
+		// side: THREE.DoubleSide,
+		transparent: true,
+		opacity: 0,
 	});
+
 	plane = new THREE.Mesh(geometry, material);
 	plane.rotation.x = -Math.PI / 2;
 	planeGroup.add(plane);
 
-	const geometryBox = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+	const geometryBox = new THREE.BoxGeometry(0.7, 0.7, 0.7);
 	const materialBox = new THREE.MeshStandardMaterial({ color: 0xff0000 });
 	cube = new THREE.Mesh(geometryBox, materialBox);
 	scene.add(cube);
@@ -214,10 +217,10 @@ const initialize = () => {
 			console.log("Dsadsadsada");
 
 			if (!onObj) {
-				plane.material.color.setHex(0xf00ff0);
+				cube.material.color.setHex(0xf00ff0);
 				onObj = true;
 			} else {
-				plane.material.color.setHex(0x000ff0);
+				cube.material.color.setHex(0x000ff0);
 				onObj = false;
 			}
 		}
