@@ -138,6 +138,10 @@ const initialize = () => {
 		plane.material.color.setHex(0x000ff0);
 	});
 
+	domEvents.addEventListener(plane, "click", (e) => {
+		cube.material.color.setHex(0x000ff0);
+	});
+
 	markerRoot2 = new THREE.Group();
 	scene.add(markerRoot2);
 	let markerControls2 = new THREEx.ArMarkerControls(
