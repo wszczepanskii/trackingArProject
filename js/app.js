@@ -162,8 +162,8 @@ const initialize = () => {
 		let txt_mat = new THREE.MeshPhongMaterial({ color: 0xffffff });
 		let txt_mesh = new THREE.Mesh(geometry, txt_mat);
 		txt_mesh.rotation.x = -Math.PI / 2;
-		txt_mesh.position.x = -0.25
-		txt_mesh.position.y = 0.9
+		txt_mesh.position.x = -0.25;
+		txt_mesh.position.y = 0.9;
 
 		cube.add(txt_mesh);
 	});
@@ -247,13 +247,15 @@ const initialize = () => {
 		if (intersection.length > 0) {
 			// console.log("Dsadsadsada");
 
-			if (!onObj) {
-				cube.material.color.setHex(0xf00ff0);
-				onObj = true;
-			} else {
-				cube.material.color.setHex(0x000ff0);
-				onObj = false;
-			}
+			// if (!onObj) {
+			// 	cube.material.color.setHex(0xf00ff0);
+			// 	onObj = true;
+			// } else {
+			// 	cube.material.color.setHex(0x000ff0);
+			// 	onObj = false;
+			// }
+
+			window.open("https://vhsoft.io/", "_blank");
 		}
 
 		render();
