@@ -176,7 +176,8 @@ const initialize = () => {
 		console.log("dsadas");
 		if (resized && hasLoadedAnim && !lost) {
 			resized = false;
-			playAnim();
+			setTimeout(playAnim, 400)
+			// playAnim();
 		}
 	});
 
@@ -241,7 +242,7 @@ const playAnim = () => {
 				// console.log(clip.duration);
 			});
 		} else {
-			action.stop;
+			action.stop();
 		}
 	}
 };
