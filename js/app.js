@@ -212,7 +212,7 @@ const update = () => {
 	if (arToolkitSource.ready !== false)
 		arToolkitContext.update(arToolkitSource.domElement);
 
-	if (hasLoaded && mixer !== undefined && clicked) mixer.update(deltaTime);
+	if (hasLoadedAnim && mixer !== undefined && clicked) mixer.update(deltaTime);
 };
 
 const render = () => {
