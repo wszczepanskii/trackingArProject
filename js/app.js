@@ -110,7 +110,7 @@ const initialize = () => {
 		markerRoot1,
 		{
 			type: "pattern",
-			patternUrl: "markers/tree2.patt",
+			patternUrl: "markers/tree3.patt",
 			// patternUrl: "markers/vhsoft_pattern.patt",
 		}
 	);
@@ -149,18 +149,18 @@ const initialize = () => {
 		hasLoadedAnim = true;
 	});
 
-	let p2 = laodModel("models/celery.glb").then((result) => {
-		modelArray[1] = result;
-		modelArray[1].scene.scale.set(
-			1.2 * modelArray[1].scene.scale.x,
-			1.2 * modelArray[1].scene.scale.y,
-			1.2 * modelArray[1].scene.scale.z
-		);
+	// let p2 = laodModel("models/celery.glb").then((result) => {
+	// 	modelArray[1] = result;
+	// 	modelArray[1].scene.scale.set(
+	// 		1.2 * modelArray[1].scene.scale.x,
+	// 		1.2 * modelArray[1].scene.scale.y,
+	// 		1.2 * modelArray[1].scene.scale.z
+	// 	);
 
-		modelArray[1].scene.position.y = 0.25;
-		modelArray[1].scene.rotation.x = -Math.PI / 2;
-		hasLoaded = true;
-	});
+	// 	modelArray[1].scene.position.y = 0.25;
+	// 	modelArray[1].scene.rotation.x = -Math.PI / 2;
+	// 	hasLoaded = true;
+	// });
 
 	const displayModel = (idx) => {
 		Promise.all([p1 /*, p2*/]).then(() => {
