@@ -15,6 +15,9 @@ let mixer,
 	clicked = false,
 	hasLoadedAnim = false;
 
+let resized = false,
+	lost = false;
+
 let composer1;
 
 let model1, modelAnimations;
@@ -65,6 +68,7 @@ const initialize = () => {
 	});
 
 	const onResize = () => {
+		resized = true;
 		arToolkitSource.onResizeElement();
 		arToolkitSource.copyElementSizeTo(renderer.domElement);
 		if (arToolkitContext.arController !== null) {
@@ -138,13 +142,13 @@ const initialize = () => {
 		console.log(modelAnimations);
 		modelArray[0] = result;
 		modelArray[0].scene.scale.set(
-			1.5 * modelArray[0].scene.scale.x,
-			1.5 * modelArray[0].scene.scale.y,
-			1.5 * modelArray[0].scene.scale.z
+			110.5 * modelArray[0].scene.scale.x,
+			110.5 * modelArray[0].scene.scale.y,
+			110.5 * modelArray[0].scene.scale.z
 		);
 
 		modelArray[0].scene.position.y = 0.25;
-		// modelArray[0].scene.rotation.x = -Math.PI / 2;
+		modelArray[0].scene.rotation.x = -Math.PI / 2;
 
 		hasLoadedAnim = true;
 	});
@@ -167,6 +171,20 @@ const initialize = () => {
 			markerRoot1.add(modelArray[idx].scene);
 		});
 	};
+
+	markerControls1.addEventListener("markerFound", () => {
+		console.log("dsadas");
+		if (resized && hasLoadedAnim && !lost) {
+			resized = false;
+			playAnim();
+		}
+	});
+
+	markerControls1.addEventListener("markerLost", () => {
+		lost = true;
+		resized = true;
+		console.log("Dsada");
+	});
 
 	// const loadModel = (idx) => {
 	// 	loader = new GLTFLoader().setPath("models/");
@@ -207,6 +225,27 @@ const initialize = () => {
 	// });
 };
 
+const playAnim = () => {
+	if (hasLoadedAnim) {
+		console.log("dasdsa");
+		clicked = true;
+		mixer = new THREE.AnimationMixer(model1);
+		const clips = modelAnimations;
+		const clip = THREE.AnimationClip.findByName(clips, "tree_grow");
+		const action = mixer.clipAction(clip);
+		if (!lost) {
+			action.play();
+			clips.forEach((clip) => {
+				// clip.duration = 2;
+				mixer.clipAction(clip).play();
+				// console.log(clip.duration);
+			});
+		} else {
+			action.stop;
+		}
+	}
+};
+
 const update = () => {
 	// update artoolkit on every frame
 	if (arToolkitSource.ready !== false)
@@ -230,19 +269,19 @@ const animate = () => {
 initialize();
 animate();
 
-animationBtn.addEventListener("click", () => {
-	if (hasLoadedAnim) {
-		console.log("dasdsa");
-		clicked = true;
-		mixer = new THREE.AnimationMixer(model1);
-		const clips = modelAnimations;
-		const clip = THREE.AnimationClip.findByName(clips, "tree_grow");
-		const action = mixer.clipAction(clip);
-		action.play();
-		clips.forEach((clip) => {
-			// clip.duration = 2;
-			mixer.clipAction(clip).play();
-			// console.log(clip.duration);
-		});
-	}
-});
+// animationBtn.addEventListener("click", () => {
+// 	if (hasLoadedAnim) {
+// 		console.log("dasdsa");
+// 		clicked = true;
+// 		mixer = new THREE.AnimationMixer(model1);
+// 		const clips = modelAnimations;
+// 		const clip = THREE.AnimationClip.findByName(clips, "tree_grow");
+// 		const action = mixer.clipAction(clip);
+// 		action.play();
+// 		clips.forEach((clip) => {
+// 			// clip.duration = 2;
+// 			mixer.clipAction(clip).play();
+// 			// console.log(clip.duration);
+// 		});
+// 	}
+// });
