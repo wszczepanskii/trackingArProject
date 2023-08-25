@@ -232,6 +232,7 @@ animate();
 
 animationBtn.addEventListener("click", () => {
 	if (hasLoadedAnim) {
+		console.log("dasdsa");
 		clicked = true;
 		mixer = new THREE.AnimationMixer(model1);
 		const clips = modelAnimations;
